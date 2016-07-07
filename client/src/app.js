@@ -1,19 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import Login from './components/login';
 import DateList from './components/date_list';
 import Calendar from './components/calendar';
 import Notification from './components/notification';
-import Notification_upcomingDate from './components/notification_upcoming';
+import Notification_upcomingDate from './components/notification_upcomingDate';
 import Notification_review from './components/notification_review';
 
-
-const App = () => {
-  
-}
-
-class App extends Component {
+export default class App extends Component {
   constructor(props){
     super(props);
 
@@ -37,4 +32,4 @@ class App extends Component {
 }
 
 
-ReactDOM.render(<App/>, document.querySelector('.container'));
+ReactDOM.render(<App />, document.getElementById('container'));
