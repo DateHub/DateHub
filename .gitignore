@@ -1,2 +1,5 @@
 # node modules
 node_modules
+
+# environment keys
+server/env/config.js
