@@ -23,9 +23,12 @@
     "body-parser": "^1.15.2",
     "concurrently": "^2.2.0",
     "express": "^4.14.0",
+    "pg": "^6.0.1",
+    "pg-hstore": "^2.3.2",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "require": "^2.4.20",
+    "sequelize": "^3.23.4",
     "webpack": "^1.13.1"
   },
   "devDependencies": {
