@@ -1,8 +1,3 @@
-// Review : this component will be displayed only if the review button of notification component is clicked
-
-// Display: A profile of the person who a user met. An input for comment. Star check
-
-
 import React, { Component } from 'react';
 
 export default class Notification_review extends Component {
@@ -16,7 +11,7 @@ export default class Notification_review extends Component {
 
   render(){
     return (
-
+      <div>Hi</div>
     );
   }
 }
