@@ -6,7 +6,7 @@ import React from 'react';
 
 const Notification_upcomingDate = (props) => {
 
-  return <div>Hi</div>;
+  return <div></div>;
 };
 
 export default Notification_upcomingDate;

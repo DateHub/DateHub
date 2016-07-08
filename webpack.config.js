@@ -1,26 +1,29 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
-  entry: './client/src/app.js',
+  entry: [
+    './client/src/app.js'
+  ],
   output: {
-    path: './client/',
+    path: path.join(__dirname, 'client'),
+    publicPath: '/',
     filename: 'bundle.js'
   },
   module: {
     loaders: [{
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+      exclude: /node_modules/,
+      loader: 'babel',
+      query: {
+        presets: ['react', 'es2015', 'stage-1']
       }
-    ]
-  },
-  query: {
-    presets: ['react', 'es2015']
-  },
-  resolveLoader: {
-    root: path.join(__dirname, './node_modules')
+    }]
   },
   resolve: {
-    extensions: ['', '.js', '.json']
+    extensions: ['', '.js', '.jsx']
+  },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './'
   }
 };
