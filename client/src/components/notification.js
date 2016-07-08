@@ -8,7 +8,7 @@ import React from 'react';
 
 const Notification = (props) => {
 
-  return <div>Hi</div>;
+  return <div></div>;
 };
 
 export default Notification;

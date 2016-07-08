@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
 import Login from './components/login';
 import DateList from './components/date_list';
 import Calendar from './components/calendar';
