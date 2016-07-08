@@ -3,3 +3,6 @@ node_modules
 
 # environment keys
 server/env/config.js
+
+# react main js
+client/bundle.js
