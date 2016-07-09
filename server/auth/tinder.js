@@ -1,4 +1,5 @@
-var request = require('request');
+var httpHelper = require('../utils/httpHelper.js');
+var syncRequest = require('sync-request');
 
 module.exports = (function() {
   var headers = {
@@ -15,18 +16,17 @@ module.exports = (function() {
   var tinder = Object.create(require('./auth.template.js'));
   tinder.path = '/auth/tinder';
   tinder.methods.post = function(request, response) {
-    request.post({
-      url: 'https://api.gotinder.com/auth',
-      headers: headers,
-      form: {
-        'facebook_token': facebookToken,
-        'facebook_id': '464891386855067',
-        'locale': 'en'
+    var facebookToken = request.body.facebook_token;
+    var res = syncRequest('POST', 'https://api.gotinder.com/auth', {
+      json: { 
+        facebook_token: facebookToken,
+        facebook_id: '464891386855067',
+        locale: 'en' 
       }
-    }, function(err, response, body) {
-      console.log(body);
-      //TODO handle login
     });
+    var data = JSON.parse(res.getBody('utf8'));
+    //TODO: set session, send data, redirect. figure it out.
+    response.send('replace me with data');
   };
 
   return tinder;
