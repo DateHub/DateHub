@@ -8,17 +8,13 @@ module.exports = (function() {
       primaryKey: true,
       autoIncrement: true
     },
-    firstName: {
+    name: {
       type: db.Sequelize.STRING,
-      field: 'first_name'
+      field: 'name'
     },
-    lastName: {
-      type: db.Sequelize.STRING,
-      field: 'last_name'
-    },
-    age: {
-      type: db.Sequelize.INTEGER,
-      field: 'age'
+    dob: {
+      type: db.Sequelize.DATE,
+      field: 'dob'
     },
     description: {
       type: db.Sequelize.STRING,
@@ -28,13 +24,16 @@ module.exports = (function() {
       type: db.Sequelize.DATE,
       field: 'last_updated'
     },
-    images: {
-      type: Sequelize.ARRAY(Sequelize.BLOB),
-      field: 'image'
+    imageUrl: {
+      type: db.Sequelize.STRING,
+      field: 'image_url'
+    },
+    matchId: {
+      type: db.Sequelize.STRING,
+      field: 'match_id'
     }
   }, {
-    tableName: 'users',
-    timestamps: false
+    timestamps: true
   });
 
   User.sync();

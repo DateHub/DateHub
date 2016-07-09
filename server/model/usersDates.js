@@ -19,16 +19,15 @@ module.exports = (function(){
       field: 'notes'
     },
     dateAgain: {
-      type: db.Sequelize.BOOLEAN,
-      defaultValue: true,
+      type: db.Sequelize.STRING,
+      defaultValue: "",
       field: 'date_again'
     }, {
-    tableName: 'usersDates',
-    timestamps: false
+    timestamps: true
   });
 
-  Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'userId'});
-  Dates.belongsToMany(Users, {through: UsersDates, foreignKey: 'dateId'});
+  Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'user_id'});
+  Dates.belongsToMany(Users, {through: UsersDates, foreignKey: 'date_id'});
 
   UsersDates.sync();
   return UsersDates;
