@@ -16,7 +16,7 @@ module.exports = (function() {
   var tinder = Object.create(require('./auth.template.js'));
   tinder.path = '/auth/tinder';
   tinder.methods.post = function(request, response) {
-    var facebookToken = request.body.facebook_token;
+    var facebookToken = request.body.access_token;
     var res = syncRequest('POST', 'https://api.gotinder.com/auth', {
       json: { 
         facebook_token: facebookToken,
@@ -25,8 +25,8 @@ module.exports = (function() {
       }
     });
     var data = JSON.parse(res.getBody('utf8'));
-    //TODO: set session, send data, redirect. figure it out.
-    response.send('replace me with data');
+    request.session.token = data.token;
+    response.redirect('/');
   };
 
   return tinder;
