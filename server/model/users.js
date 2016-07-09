@@ -1,6 +1,6 @@
 var db = require('../db.js');
 
-module.export = (function() {
+module.exports = (function() {
   var User = db.define('users', {
     id: {
       type: Sequelize.INTEGER,

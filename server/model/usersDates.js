@@ -6,8 +6,8 @@ module.exports = (function(){
 
   UsersDates = db.define('usersDates');
 
-  Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'id'});
-  Dates.belongsToMany(Users, {through: UsersDates, foreignKey: 'id'});
+  Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'userId'});
+  Dates.belongsToMany(Users, {through: UsersDates, foreignKey: 'dateId'});
 
   UsersDates.sync();
   return UsersDates;
