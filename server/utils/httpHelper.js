@@ -5,7 +5,7 @@ module.exports = (function(){
       response.status(404).send(message);
     },
     ensureAuthentication: function(request, response, next) {
-      if(request.isAuthenticated()) {
+      if(request.session && request.session.token) {
         return next();
       }
       response.redirect('/login');
