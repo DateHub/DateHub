@@ -22,7 +22,9 @@ module.exports = (function(){
       type: db.Sequelize.BOOLEAN,
       defaultValue: true,
       field: 'date_again'
-    }
+    }, {
+    tableName: 'usersDates',
+    timestamps: false
   });
 
   Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'userId'});

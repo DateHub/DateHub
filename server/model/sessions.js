@@ -12,7 +12,9 @@ module.exports = (function(){
     sessionId: {
       type: db.Sequelize.TEXT,
       field: 'session_id'
-    }
+    }, {
+    tableName: 'sessions',
+    timestamps: false
   });
 
   Sessions.hasOne(Users);
