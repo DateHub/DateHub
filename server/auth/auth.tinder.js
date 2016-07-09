@@ -25,8 +25,8 @@ module.exports = (function() {
       }
     });
     var data = JSON.parse(res.getBody('utf8'));
-    //TODO: set session, send data, redirect. figure it out.
-    response.send('replace me with data');
+    request.session.token = data.token;
+    response.redirect('/');
   };
 
   return tinder;
