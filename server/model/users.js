@@ -3,26 +3,30 @@ var db = require('../db.js');
 module.exports = (function() {
   var User = db.define('users', {
     id: {
-      type: Sequelize.INTEGER,
+      type: db.Sequelize.INTEGER,
       field: 'id',
       primaryKey: true,
       autoIncrement: true
     },
     firstName: {
-      type: Sequelize.STRING,
+      type: db.Sequelize.STRING,
       field: 'first_name'
     },
     lastName: {
-      type: Sequelize.STRING,
+      type: db.Sequelize.STRING,
       field: 'last_name'
     },
     age: {
-      type: Sequelize.INTEGER,
+      type: db.Sequelize.INTEGER,
       field: 'age'
     },
     description: {
-      type: Sequelize.STRING,
+      type: db.Sequelize.STRING,
       field: 'description'
+    },
+    lastUpdated: {
+      type: db.Sequelize.DATE,
+      field: 'last_updated'
     }
   });
 
