@@ -1,3 +1,4 @@
+var request = require('request');
 module.exports = (function(){
   return {
     send404: function(response, message) {

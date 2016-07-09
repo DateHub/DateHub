@@ -6,12 +6,13 @@
   "scripts": {
     "webpack-watch": "./node_modules/webpack/bin/webpack.js -w",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "express-server": "node ./index.js",
+    "express-server": "nodemon ./index.js",
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run express-server\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "axios": "^0.12.0",
     "babel-plugin-transform-class-properties": "^6.10.2",
     "babel-plugin-transform-runtime": "^6.9.0",
     "babel-polyfill": "^6.9.1",
@@ -31,6 +32,7 @@
     "request": "^2.72.0",
     "require": "^2.4.20",
     "sequelize": "^3.23.4",
+    "sync-request": "^3.0.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
