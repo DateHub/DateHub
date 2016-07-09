@@ -23,6 +23,10 @@ module.exports = (function() {
     description: {
       type: db.Sequelize.STRING,
       field: 'description'
+    },
+    lastUpdated: {
+      type: db.Sequelize.DATE,
+      field: 'last_updated'
     }
   });
 
