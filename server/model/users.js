@@ -27,7 +27,14 @@ module.exports = (function() {
     lastUpdated: {
       type: db.Sequelize.DATE,
       field: 'last_updated'
+    },
+    images: {
+      type: Sequelize.ARRAY(Sequelize.BLOB),
+      field: 'image'
     }
+  }, {
+    tableName: 'users',
+    timestamps: false
   });
 
   User.sync();
