@@ -1,4 +1,4 @@
-var tinder = require('./tinder.js');
+var tinder = require('./auth.tinder.js');
 module.exports = (function() {
   var auths = [
     tinder
