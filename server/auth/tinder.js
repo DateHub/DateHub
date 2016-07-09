@@ -16,7 +16,7 @@ module.exports = (function() {
   var tinder = Object.create(require('./auth.template.js'));
   tinder.path = '/auth/tinder';
   tinder.methods.post = function(request, response) {
-    var facebookToken = request.body.facebook_token;
+    var facebookToken = request.body.access_token;
     var res = syncRequest('POST', 'https://api.gotinder.com/auth', {
       json: { 
         facebook_token: facebookToken,
