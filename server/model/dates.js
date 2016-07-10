@@ -19,7 +19,8 @@ module.exports = (function(){
     date: {
       type: db.Sequelize.DATE,
       field: 'date'
-    }, {
+    }
+  }, {
     timestamps : true
   });
 
