@@ -29,7 +29,4 @@ app.use(session({
 app.use('/api/*', httpHelper.ensureAuthentication, router(controllers));
 app.use('/auth/*', router(auths));
 
-var db = require('./db.js');
-
-
 module.exports = app;

@@ -30,7 +30,10 @@ module.exports = (function() {
     var matches = JSON.parse(result.getBody('utf8')).matches;
     matches = removeInternalTinderUsers(matches);
     return _.map(matches, function(match) {
-      return parseMatchForPersonData(match);
+      return {
+        matchId: match.id,
+        person: parsePersonData(match.person)
+      };
     });
   }
 
@@ -46,8 +49,7 @@ module.exports = (function() {
     });
   }
 
-  function parseMatchForPersonData(match) {
-    var person = match.person;
+  function parsePersonData(person) {
     if(!person) {
       return;
     }
@@ -55,11 +57,16 @@ module.exports = (function() {
       id: person._id,
       name: person.name,
       dob: person.birth_date,
-      imgUrl: person.photos[0] && person.photos[0].url
+      imgUrl: person.photos[0] && buildImageUrl(person._id, person.photos[0].fileName)
     };
   }
 
+  function buildImageUrl(userId, imgFileName) {
+    return 'http://images.gotinder.com/' + userId + '/' + imgFileName;
+  }
+
   return {
-    getMatches: getMatches
+    getMatches: getMatches,
+    parsePersonData: parsePersonData
   };
 })();
