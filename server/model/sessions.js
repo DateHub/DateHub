@@ -12,7 +12,8 @@ module.exports = (function(){
     sessionId: {
       type: db.Sequelize.TEXT,
       field: 'session_id'
-    }, {
+    }
+  }, {
     timestamps: true
   });
 
