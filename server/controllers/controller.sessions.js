@@ -1,5 +1,6 @@
 var template = require('./controller.template.js');
 
+
 module.exports = (function() {
   var sessionController = Object.create(template);
 

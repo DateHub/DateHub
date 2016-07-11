@@ -7,7 +7,7 @@ module.exports = (function(){
   /**********         CREATE (POST)       **********/
   /********** inserting data into a table **********/
   // in process
-  var insertData = function(req, res, table, newData){
+  var insertData = function(request, response, table, newData){
     console.log(newData)
     table.create(newData)
       .then(function(){
@@ -23,25 +23,25 @@ module.exports = (function(){
 
   //get all data from a column
   //table: all type of tables
-  var getAllOfField = function(req, res, table, field) {
+  var getAllOfField = function(request, response, table, field) {
     table.findAll({where:{field}})
       .then(function(data){
-        res.status(200).send(data);
+        response.status(200).send(data);
       })
       .catch(function(err){
-        res.status(500).send(err.message)
+        response.status(500).send(err.message)
       })
   };
 
   // get a data of a row (one record)
   //table: all type of tables
-  var getRecordById = function(req, res, table, id){
+  var getRecordById = function(request, response, table, id){
     table.findById(id)
     .then(function(data){
-      res.status(200).send(data);
+      response.status(200).send(data);
     })
     .catch(function(err){
-      res.status(500).send(err.message);
+      response.status(500).send(err.message);
     })
   };
 
