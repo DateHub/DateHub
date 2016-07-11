@@ -30,6 +30,7 @@
     "react": "^15.2.0",
     "react-big-calendar": "^0.10.2",
     "react-dom": "^15.2.0",
+    "react-modal": "^1.4.0",
     "request": "^2.72.0",
     "require": "^2.4.20",
     "sequelize": "^3.23.4",

@@ -20,9 +20,10 @@ module.exports = (function(){
     },
     dateAgain: {
       type: db.Sequelize.STRING,
-      defaultValue: "",
+      defaultValue: "ask",
       field: 'date_again'
-    }, {
+    }
+  }, {
     timestamps: true
   });
 

@@ -27,10 +27,6 @@ module.exports = (function() {
     imageUrl: {
       type: db.Sequelize.STRING,
       field: 'image_url'
-    },
-    matchId: {
-      type: db.Sequelize.STRING,
-      field: 'match_id'
     }
   }, {
     timestamps: true

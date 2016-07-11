@@ -1,5 +1,6 @@
-var httpHelper = require('../utils/httpHelper.js');
 var syncRequest = require('sync-request');
+var httpHelper = require('../utils/httpHelper.js');
+var tinderHelper = require('../utils/tinderHelper.js');
 
 module.exports = (function() {
   var headers = {
@@ -26,6 +27,8 @@ module.exports = (function() {
     });
     var data = JSON.parse(res.getBody('utf8'));
     request.session.token = data.token;
+    request.session.user = tinderHelper.parsePersonData(data.user);
+    request.session.user.create_date = data.create_date;
     response.redirect('/');
   };
 
