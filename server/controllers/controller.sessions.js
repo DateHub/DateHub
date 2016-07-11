@@ -1,17 +1,17 @@
 var template = require('./controller.template.js');
 
 module.exports = (function() {
-  var sessionControllers = Object.create(template);
+  var sessionController = Object.create(template);
 
-  sessionControllers.path = '/api/sessions';
+  sessionController.path = '/api/sessions';
 
-  sessionControllers.methods.get = function(request, response) {
-
-  };
-
-  sessionControllers.methods.post = function(request, response) {
+  sessionController.methods.get = function(request, response) {
 
   };
 
-  return sessionControllers;
+  sessionController.methods.post = function(request, response) {
+
+  };
+
+  return sessionController;
 })();

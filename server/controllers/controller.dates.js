@@ -1,17 +1,17 @@
 var template = require('./controller.template.js');
 
 module.exports = (function() {
-  var dateControllers = Object.create(template);
+  var dateController = Object.create(template);
 
-  dateControllers.path = '/api/dates';
+  dateController.path = '/api/dates';
 
-  dateControllers.methods.get = function(request, response) {
-
-  };
-
-  dateControllers.methods.post = function(request, response) {
+  dateController.methods.get = function(request, response) {
 
   };
 
-  return dateControllers;
+  dateController.methods.post = function(request, response) {
+
+  };
+
+  return dateController;
 })();
