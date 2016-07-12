@@ -1,5 +1,5 @@
 var template = require('./controller.template.js');
-var DbHelper = require('../ utils/dbHelper.js');
+var DbHelper = require('../utils/dbHelper.js');
 var TinderHelper = require('../utils/tinderHelper.js');
 var Matches = require('../model/matches.js');
 
@@ -18,4 +18,5 @@ module.exports = (function() {
 
   };
 
+  return matchController;
 })();

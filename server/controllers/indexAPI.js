@@ -5,7 +5,7 @@ var userController = require('./controller.users.js');
 var dateController = require('./controller.dates.js');
 var usersDatesController = require('./controller.usersDates.js');
 var sessionController = require('./controller.sessions.js');
-var matchController = require('./controller.match.js');
+var matchController = require('./controller.matches.js');
 
 module.exports = (function(){
   var controllers = [
