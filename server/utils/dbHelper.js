@@ -8,23 +8,21 @@ module.exports = (function(){
   /********** inserting data into a table **********/
   // in process
   var insertData = function(request, response, table, newData){
-    console.log(newData)
-    table.create(newData)
-      .then(function(){
-
+    db.table.create(newData)
+      .then(function(data){
+        response.status(200).send(data);
       })
       .catch(function(){
-
+        response.status(500).send(err.message);
       });
   };
 
   /**********           READ (GET)        **********/
   /********** get data into a table **********/
-
   //get all data from a column
   //table: all type of tables
   var getAllOfField = function(request, response, table, field) {
-    table.findAll({where:{field}})
+    db.table.findAll({where:{field}})
       .then(function(data){
         response.status(200).send(data);
       })
@@ -36,13 +34,13 @@ module.exports = (function(){
   // get a data of a row (one record)
   //table: all type of tables
   var getRecordById = function(request, response, table, id){
-    table.findById(id)
-    .then(function(data){
-      response.status(200).send(data);
-    })
-    .catch(function(err){
-      response.status(500).send(err.message);
-    })
+    db.table.findById(id)
+      .then(function(data){
+        response.status(200).send(data);
+      })
+      .catch(function(err){
+        response.status(500).send(err.message);
+      })
   };
 
   //getByAge
@@ -54,6 +52,10 @@ module.exports = (function(){
 
   
 
-
+  return {
+    insertData: insertData,
+    getAllOfField: getAllOfField,
+    getRecordById: getRecordById
+  };
 
 })();

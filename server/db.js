@@ -6,4 +6,3 @@ var db = new Sequelize('LycheeXD', null, null, {
 });
 
 // instantiate the database:
-
