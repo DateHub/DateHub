@@ -1,5 +1,6 @@
 var template = require('./controller.template.js');
-var DbHelper = require('../ utilr/dbHelper.js');
+var DbHelper = require('../ utils/dbHelper.js');
+var TinderHelper = require('../utils/tinderHelper.js');
 var Matches = require('../model/matches.js');
 
 module.exports = (function() {
