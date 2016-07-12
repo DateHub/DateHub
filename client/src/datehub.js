@@ -12,7 +12,7 @@ import NotificationReview from './components/notification_review';
 import NotifcationUpcomingDate from './components/notification_upcomingDate';
 import Popup from './components/popup'
 
-// import react router dependencies
+// Import react router dependencies
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store, { history } from './store'

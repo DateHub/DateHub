@@ -54,7 +54,7 @@ function events(state = [], action) {
     return {
       // take the current state
       ...state,
-      // overwrite this post with a new one
+      // create/overwrite with a new event
       [action.event]: changeEvents(state[action.event], action)
     }
   }

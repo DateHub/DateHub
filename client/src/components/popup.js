@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import BigCalendar from 'react-big-calendar';
-// import moment from 'moment';
 import Modal from 'react-modal';
 // import ReactDOM from 'react-dom';
 
@@ -15,10 +13,6 @@ import Modal from 'react-modal';
 //     desc: 'Pre-meeting meeting, to prepare for the meeting'
 // }
 
-
-// BigCalendar.setLocalizer(
-//   BigCalendar.momentLocalizer(moment)
-// );
 
 const customStyles = {
   overlay : {
@@ -89,14 +83,15 @@ export default class Popup extends Component {
 
     let updatedEvent = {
       location: this.refs.location || "",
-      desc: this.refs.description || "",
+      name: this.refs.name || "",
+      notes: this.refs.notes || "",
       start: this.refs.start || "",
       end: this.refs.end || ""
     };
 
     this.closeModal();
 
-    /* someHelperFunction.axios(event) => {
+    /* TODO: someHelperFunction.axios(event) => {
         should send events to helper function which updates the db
 
       } */
@@ -117,8 +112,8 @@ export default class Popup extends Component {
             <button onClick={this.closeModal}>Close</button>
             <input type="datetime" defaultValue={this.state.event.start} placeholder="Enter a start time" ref="start"/>
             <input type="text" defaultValue={this.state.event.name} placeholder="Enter a name" ref="name"/>
-            <input type="text" defaultValue={this.state.event.title} placeholder="Enter a location" ref="title"/>
-            <input type="text" defaultValue={this.state.event.desc} placeholder="Notes/description" ref="description"/>
+            <input type="text" defaultValue={this.state.event.location} placeholder="Enter a location" ref="location"/>
+            <input type="text" defaultValue={this.state.event.notes} placeholder="Notes/description" ref="notes"/>
           </form>
         </Modal>
       </div>
