@@ -1,4 +1,7 @@
 var template = require('./controller.template.js');
+var DbHelper = require('../utils/dbHelper.js');
+var TinderHelper = require('../utils/tinderHelper.js');
+var Sessions = require('../model/sessions.js');
 
 
 module.exports = (function() {
@@ -7,7 +10,7 @@ module.exports = (function() {
   sessionController.path = '/api/sessions';
 
   sessionController.methods.get = function(request, response) {
-
+    
   };
 
   sessionController.methods.post = function(request, response) {
