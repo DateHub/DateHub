@@ -29,4 +29,8 @@ app.use(session({
 app.use('/api/*', httpHelper.ensureAuthentication, router(controllers));
 app.use('/auth/*', router(auths));
 
+app.use('/*', function(request, response) {
+  response.status(404).send('404 error. Page not found.');
+});
+
 module.exports = app;
