@@ -8,8 +8,8 @@ module.exports = (function(){
 
   userController.path = '/api/users';
 
-  userController.methods.GET = function(request, response) {
-
+  userController.methods.get = function(request, response) {
+    dbHelper.getAll(request, response, User);
   };
 
   userController.methods.post = function(request, response) {
