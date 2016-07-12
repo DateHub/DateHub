@@ -6,11 +6,7 @@ var User = require('../model/users.js')
 module.exports = (function(){
   var userController = Object.create(template);
 
-<<<<<<< HEAD
-  userController.path = '/api/users/';
-=======
   userController.path = '/api/users';
->>>>>>> a38e35765f4f8d96a36faca60b31b2eee40af265
 
   userController.methods.get = function(request, response) {
     dbHelper.getAll(request, response, User);
