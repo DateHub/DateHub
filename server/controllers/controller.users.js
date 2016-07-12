@@ -1,6 +1,6 @@
 var template = require('./controller.template.js');
 var dbHelper = require('../utils/dbHelper.js');
-var Users = require('../model/users.js')
+var User = require('../model/users.js')
 
 
 module.exports = (function(){
@@ -8,7 +8,7 @@ module.exports = (function(){
 
   userController.path = '/api/users';
 
-  userController.methods.get = function(request, response) {
+  userController.methods.GET = function(request, response) {
 
   };
 
@@ -20,7 +20,7 @@ module.exports = (function(){
       description: req.body.description,
       images     : req.body.images
     }
-    
+    dbHelper.insertData(request, response, User, newUser);
   };
 
   userController.methods.put = function(request, response) {
