@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 // This component will get the user id and user password with authentication feature.
 
@@ -8,7 +9,7 @@ export default class Login extends Component {
     super(props);
 
     // TODO: Grab user ID and user password
-    this.state = { 
+    this.state = {
       facebookToken: ''
     };
 

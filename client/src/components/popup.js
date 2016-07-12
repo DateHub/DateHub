@@ -21,8 +21,12 @@ import Modal from 'react-modal';
 // );
 
 const customStyles = {
+  overlay : {
+    backgroundColor   : 'rgba(255, 255, 255, .1)',
+    zIndex:  1000
+  },
   content : {
-        top                   : '50%',
+    top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
@@ -73,10 +77,30 @@ export default class Popup extends Component {
     this.refs.subtitle.style.color = '#f00';
   }
 
-  closeModal() {
+  closeModal(event) {
+    event.preventDefault();
     this.setState({
       modalIsOpen: false
     });
+  }
+
+  save(event) {
+    event.preventDefault();
+
+    let updatedEvent = {
+      location: this.refs.location || "",
+      desc: this.refs.description || "",
+      start: this.refs.start || "",
+      end: this.refs.end || ""
+    };
+
+    this.closeModal();
+
+    /* someHelperFunction.axios(event) => {
+        should send events to helper function which updates the db
+
+      } */
+
   }
 
   render() {
@@ -86,22 +110,18 @@ export default class Popup extends Component {
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
-          style={customStyles} >
-
-          <h2 ref="subtitle">Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>Date</div>
-          <div>{this.state.event.name}</div>
-          <div>{this.state.event.title}</div>
-          <form>
-            <input />
+          style={customStyles}>
+          <h2 ref="subtitle">Date Info</h2>
+          <form className="eventEditor">
+            <button className="saveEvent" type="submit" onSubmit={this.save}>Save</button>
+            <button onClick={this.closeModal}>Close</button>
+            <input type="datetime" defaultValue={this.state.event.start} placeholder="Enter a start time" ref="start"/>
+            <input type="text" defaultValue={this.state.event.name} placeholder="Enter a name" ref="name"/>
+            <input type="text" defaultValue={this.state.event.title} placeholder="Enter a location" ref="title"/>
+            <input type="text" defaultValue={this.state.event.desc} placeholder="Notes/description" ref="description"/>
           </form>
         </Modal>
       </div>
-      
     );
   }
 }
-
-            // <div>{this.state.event.start}</div>
-            // <div>{this.state.event.end}</div>
