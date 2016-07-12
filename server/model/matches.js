@@ -17,8 +17,8 @@ module.exports = (function() {
     timestamp: true
   }); 
 
-  Users.belongsToMany(Users, {through: Matches, foreignKey: 'user1_id'});
-  Users.belongsToMany(Users, {through: Matches, foreignKey: 'user2_id'});
+  Users.belongsToMany(Matches, {through: Matches, foreignKey: 'user_id', as: 'user1_id'});
+  Users.belongsToMany(Matches, {through: Matches, foreignKey: 'user_id', as: 'user2_id'});   
 
   Matches.sync();
   return Matches;
