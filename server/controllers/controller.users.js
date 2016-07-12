@@ -6,7 +6,7 @@ var User = require('../model/users.js')
 module.exports = (function(){
   var userController = Object.create(template);
 
-  userController.path = '/api/users';
+  userController.path = '/api/users/';
 
   userController.methods.get = function(request, response) {
     dbHelper.getAll(request, response, User);
@@ -14,11 +14,11 @@ module.exports = (function(){
 
   userController.methods.post = function(request, response) {
     var newUser = {
-      id         : req.body.id,
-      name       : req.body.name,
-      age        : req.body.age,
-      description: req.body.description,
-      images     : req.body.images
+      id         : request.body.id,
+      name       : request.body.name,
+      age        : request.body.age,
+      description: request.body.description,
+      images     : request.body.images
     }
     dbHelper.insertData(request, response, User, newUser);
   };
