@@ -8,7 +8,7 @@ module.exports = (function(){
   //inserting data into a table
   var insertData = function(request, response, table, newData){
     console.log(newData)
-    table.create(newData)
+    db.table.create(newData)
       .then(function(){
         response.status(200).send(data);
       })
@@ -18,9 +18,20 @@ module.exports = (function(){
   };
 
   //GET
+  //get all
+  var getAll = function(request, response, table) {
+    db.table.findAll()
+      .then(function(data){
+        response.status(200).send(data);
+      })
+      .catch(function(err){
+        response.status(500).send(err.message);
+      });
+  }
+
   //get all data from a column
   var getAllOfField = function(request, response, table, field) {
-    table.findAll({where:{field}})
+    db.table.findAll({where:{field}})
       .then(function(data){
         response.status(200).send(data);
       })
@@ -29,9 +40,11 @@ module.exports = (function(){
       });
   };
 
+
+
   // get a data of a row (one record)
   var getRecordById = function(request, response, table, id){
-    table.findById(id)
+    db.table.findById(id)
     .then(function(data){
       response.status(200).send(data);
     })
