@@ -18,4 +18,5 @@ module.exports = (function() {
 
   };
 
+  return matchController;
 })();
