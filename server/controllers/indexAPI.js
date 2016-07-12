@@ -1,15 +1,19 @@
 // -> require controllers here
 // checkout controller.example.js for example
 // var example = require('./controller.example.js');
-var usersController = require('./controller.users.js');
-var datesController = require('./controller.dates.js');
+var userController = require('./controller.users.js');
+var dateController = require('./controller.dates.js');
 var usersDatesController = require('./controller.usersDates.js');
-var sessionsController = require('./controller.sessions.js');
+var sessionController = require('./controller.sessions.js');
+var matchController = require('./controller.match.js');
 
 module.exports = (function(){
   var controllers = [
-    usersController,
-    usersDatesController
+    userController,
+    usersDatesController,
+    dateController,
+    sessionController,
+    matchController
   ];
   var router = {};
   controllers.forEach(function(controller) {

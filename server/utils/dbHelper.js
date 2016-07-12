@@ -27,8 +27,8 @@ module.exports = (function(){
         response.status(200).send(data);
       })
       .catch(function(err){
-        response.status(500).send(err.message)
-      })
+        response.status(500).send(err.message);
+      });
   };
 
   // get a data of a row (one record)
@@ -40,7 +40,7 @@ module.exports = (function(){
       })
       .catch(function(err){
         response.status(500).send(err.message);
-      })
+      });
   };
 
   //getByAge
