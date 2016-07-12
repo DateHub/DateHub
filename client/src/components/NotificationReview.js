@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Notification_review extends Component {
+export default class NotificationReview extends Component {
   constructor(props){
     super(props);
 

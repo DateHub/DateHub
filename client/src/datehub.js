@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 // Import components
-import App from './components/app';
-import Calendar from './components/calendar';
-import DateList from './components/date_list';
-import Login from './components/login';
-import Notification from './components/notification';
-import NotificationReview from './components/notification_review';
-import NotifcationUpcomingDate from './components/notification_upcomingDate';
-import Popup from './components/popup'
+import App from './components/App';
+import Calendar from './components/Calendar';
+import DateList from './components/DateList';
+import Login from './components/Login';
+import Notification from './components/Notification';
+import NotificationReview from './components/NotificationReview';
+import NotifcationUpcomingDate from './components/NotificationUpcomingDate';
+import Popup from './components/Popup';
 
 // Import react router dependencies
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';

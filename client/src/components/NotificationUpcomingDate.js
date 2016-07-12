@@ -4,9 +4,9 @@ import React from 'react';
 
 // Display: the closest date information
 
-const Notification_upcomingDate = (props) => {
+const NotificationUpcomingDate = (props) => {
 
   return <div></div>;
 };
 
-export default Notification_upcomingDate;
+export default NotificationUpcomingDate;
