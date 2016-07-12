@@ -3,6 +3,7 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import Popup from './popup' ;
 import { Link } from 'react-router';
+import Main from './Main'
 
 // Need to add an import for the location of the dates/events themselves
 // import events from './events'
@@ -46,10 +47,10 @@ export default class Calendar extends Component {
         <div style={{ height: 500 }}>
           <BigCalendar
             selectable
-            events={events}
+            events={this.props.events}
             defaultView='month'
             scrollToTime={new Date(1970, 1, 1, 6)}
-            defaultDate={new Date(2015, 3, 12)}
+            defaultDate={new Date()}
             onSelectEvent={event => this.open(event)}
           />
           <Popup value={this.state} />
