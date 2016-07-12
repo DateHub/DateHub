@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './client/src/app.js'
+    './client/src/datehub.js'
   ],
   output: {
     path: path.join(__dirname, 'client'),
