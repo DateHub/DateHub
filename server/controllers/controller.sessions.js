@@ -1,7 +1,7 @@
 var template = require('./controller.template.js');
 var DbHelper = require('../utils/dbHelper.js');
 var TinderHelper = require('../utils/tinderHelper.js');
-var Sessions = require('../model/sessions.js');
+var Sessions = require('../models/sessions.js');
 
 
 module.exports = (function() {

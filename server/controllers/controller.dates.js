@@ -1,7 +1,7 @@
 var template = require('./controller.template.js');
 var DbHelper = require('../utils/dbHelper.js');
-var Dates = require('../model/dates.js');
-var UsersDates = require('../model/usersDates.js');
+var Dates = require('../models/dates.js');
+var UsersDates = require('../models/usersDates.js');
 
 
 module.exports = (function() {
