@@ -54,6 +54,7 @@ export default class Calendar extends Component {
   render() {
     return (
       <div>
+        <Link to='/api/dates'>Date List!</Link>
         <div style={{ height: 500 }}>
           <BigCalendar
             selectable
