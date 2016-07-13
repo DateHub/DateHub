@@ -4,19 +4,18 @@ var TinderHelper = require('../utils/tinderHelper.js');
 var Matches = require('../model/matches.js');
 
 module.exports = (function() {
-  var matchController = Object.create(template);
+  var matchController = template.clone({
+    path: '/api/matches'
+  });
+  var router = matchController.router;
 
-  matchController.path = '/api/matches';
+  router.get('/', function(request, response) {
 
-  
+  });
 
-  matchController.methods.get = function(request, response) {
+  router.post('/', function(request, response) {
 
-  };
-
-  matchController.methods.post = function(request, response) {
-
-  };
+  });
 
   return matchController;
 })();

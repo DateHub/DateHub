@@ -1,6 +1,12 @@
+var express = require('express');
+
 module.exports = (function() {
   return {
-    path: '',
-    methods: {}
+    clone: function(attributes) {
+      return {
+        path: attributes.path || '',
+        router: express.Router()
+      };
+    }
   };
 })();
