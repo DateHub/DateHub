@@ -12,7 +12,3 @@ const Main = React.createClass({
 });
 
 export default Main;
-
-        // <h1>
-        //   <Link to="/">DateHub</Link>
-        // </h1>
