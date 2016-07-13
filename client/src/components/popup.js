@@ -36,8 +36,6 @@ export default class Popup extends Component {
   constructor(props){
     super(props);
 
-    console.log(this.props.value);
-
     this.state = { 
       modalIsOpen: this.props.value.open,
       event: this.props.value.current
@@ -46,12 +44,7 @@ export default class Popup extends Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-
-  componentDidMount(){
-    this.setState({
-      event: this.props.value
-    });
+    this.save = this.save.bind(this);
   }
   
   componentWillReceiveProps(nextProps){
