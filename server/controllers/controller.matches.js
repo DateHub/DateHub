@@ -1,7 +1,7 @@
 var template = require('./controller.template.js');
 var DbHelper = require('../utils/dbHelper.js');
 var TinderHelper = require('../utils/tinderHelper.js');
-var Matches = require('../model/matches.js');
+var Matches = require('../models/matches.js');
 
 module.exports = (function() {
   var matchController = template.clone({

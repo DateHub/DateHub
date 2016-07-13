@@ -1,6 +1,6 @@
 var db = require('../db.js');
-var Users = require('../model/users.js');
-var Dates = require('../model/dates.js');
+var Users = require('../models/users.js');
+var Dates = require('../models/dates.js');
 
 module.exports = (function(){
 

@@ -1,5 +1,5 @@
 var dbHelper = require('../utils/dbHelper.js');
-var Users = require('../model/users.js');
+var Users = require('../models/users.js');
 var template = require('./controller.template.js');
 
 module.exports = (function(){
