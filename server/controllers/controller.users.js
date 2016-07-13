@@ -24,7 +24,7 @@ module.exports = (function(){
   };
 
   userController.methods.put = function(request, response) {
-    
+    // console.log(request.params)
   };
 
   userController.methods.delete = function(request, response) {
