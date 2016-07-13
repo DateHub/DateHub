@@ -5,17 +5,18 @@ var Sessions = require('../model/sessions.js');
 
 
 module.exports = (function() {
-  var sessionController = Object.create(template);
+  var sessionController = template.clone({
+    path: '/api/sessions'
+  });
+  var router = sessionController.router;
 
-  sessionController.path = '/api/sessions';
-
-  sessionController.methods.get = function(request, response) {
+  router.get('/', function(request, response) {
     
-  };
+  });
 
-  sessionController.methods.post = function(request, response) {
+  router.post('/', function(request, response) {
 
-  };
+  });
 
   return sessionController;
 })();

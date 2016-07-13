@@ -1,6 +1,7 @@
 var syncRequest = require('sync-request');
 var httpHelper = require('../utils/httpHelper.js');
 var tinderHelper = require('../utils/tinderHelper.js');
+var template = require('./auth.template.js');
 
 module.exports = (function() {
   var headers = {
@@ -14,9 +15,10 @@ module.exports = (function() {
     'Connection': 'Keep-Alive'
   };
 
-  var tinder = Object.create(require('./auth.template.js'));
-  tinder.path = '/auth/tinder';
-  tinder.methods.post = function(request, response) {
+  var tinder = template.clone({
+    path: '/auth/tinder'
+  });
+  tinder.router.post('/', function(request, response) {
     var facebookToken = request.body.access_token;
     var res = syncRequest('POST', 'https://api.gotinder.com/auth', {
       json: { 
@@ -30,7 +32,7 @@ module.exports = (function() {
     request.session.user = tinderHelper.parsePersonData(data.user);
     request.session.user.create_date = data.create_date;
     response.redirect('/');
-  };
+  });
 
   return tinder;
 })();

@@ -1,25 +1,27 @@
 var template = require('./controller.template.js');
 
 module.exports = (function(){
-  var usersDatesController = Object.create(template);
+  var usersDatesController = template.clone({
+    path: '/api/usersDates'
+  });
 
-  usersDatesController.path = '/api/usersDates';
+  var router = usersDatesController.router;
 
-  usersDatesController.methods.get = function(request, response) {
+  router.get('/', function(request, response) {
 
-  };
+  });
 
-  usersDatesController.methods.post = function(request, response) {
+  router.post('/', function(request, response) {
     
-  };
+  });
 
-  usersDatesController.methods.put = function(request, response) {
+  router.put('/', function(request, response) {
     
-  };
+  });
 
-  usersDatesController.methods.delete = function(request, response) {
+  router.delete('/', function(request, response) {
     
-  };
+  });
 
   return usersDatesController;
 

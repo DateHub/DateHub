@@ -1,8 +1,14 @@
+var express = require('express');
+
 module.exports = (function() {
   return {
-    path: '',
-    callback: '',
-    methods: {},
-    callbackMethods: {}
+    clone: function(attributes) {
+      return {
+        path: attributes.path || '',
+        router: express.Router(),
+        callback: attributes.callback || '',
+        callbackRouter: express.Router()
+      };
+    }
   };
 })();

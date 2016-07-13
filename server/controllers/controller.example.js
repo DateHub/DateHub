@@ -1,15 +1,22 @@
 var template = require('./controller.template.js');
 
 module.exports = (function() {
-  var example = Object.create(template);
-  example.path = '/api/hello';
+  var example = template.clone({
+    path: '/api/examples'
+  })
+  var router = example.router;
   // specify http methods here
-  // example.methods.post = function(request, response) {
+  // router.post('/', function(request, response) {
   //   response.send('what?');   
-  // };
+  // });
   //
-  example.methods.get = function(request, response) {
+  router.get('/', function(request, response) {
     response.send('hello');
-  };
+  });
+
+  router.get('/:id', function(request, response) {
+    var id = request.params.id || '';
+    response.send(id);
+  });
   return example;
 })();
