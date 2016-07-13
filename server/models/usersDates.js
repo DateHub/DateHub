@@ -30,6 +30,6 @@ module.exports = (function(){
   Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'user_id'});
   Dates.belongsToMany(Users, {through: UsersDates, foreignKey: 'date_id'});
 
-  UsersDates.sync();
+  UsersDates.sync({force:true});
   return UsersDates;
 })();

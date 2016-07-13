@@ -10,5 +10,5 @@ module.exports = (function() {
       port: config.port,
       dialect: config.dialect
   });
-  return db; 
+  return db;
 })();
