@@ -5,9 +5,6 @@ const Main = React.createClass({
   render() {
     return (
       <div>
-        <h1>
-          <Link to="/">DateHub</Link>
-        </h1>
         {React.cloneElement(this.props.children, this.props)}
       </div>
     )
@@ -15,3 +12,7 @@ const Main = React.createClass({
 });
 
 export default Main;
+
+        // <h1>
+        //   <Link to="/">DateHub</Link>
+        // </h1>

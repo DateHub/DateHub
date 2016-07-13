@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import Popup from './popup' ;
+import Popup from './Popup' ;
 import { Link } from 'react-router';
-import Main from './Main'
+import Main from './Main';
 
 // Need to add an import for the location of the dates/events themselves
 // import events from './events'
