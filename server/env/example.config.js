@@ -8,7 +8,7 @@ module.exports = (function() {
     userName: 'ENTER USERNAME',             // coolguy
     password: 'ENTER PASSWORD',             // coolguypassword
     host: 'ENTER HOSTNAME',                 // ex: localhost
-    port: 'ENTER PORT',                     // ex: 1234
+    port: 5432,                             // ex: 1234
     dialect: 'postgres'
   };
 
