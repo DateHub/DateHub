@@ -1,35 +1,45 @@
-var template = require('./controller.template.js');
 var dbHelper = require('../utils/dbHelper.js');
-var User = require('../model/users.js')
-
+var Users = require('../model/users.js');
+var template = require('./controller.template.js');
 
 module.exports = (function(){
-  var userController = Object.create(template);
+  var userController = template.clone({
+    path: '/api/users'
+  });
+  var router = userController.router;
 
-  userController.path = '/api/users/';
+  router.get('/', function(request, response) {
+      Users.findAll()
+      .then(function(users) {
+        response.send(users);
+      });
+  });
 
-  userController.methods.get = function(request, response) {
-    dbHelper.getAll(request, response, User);
-  };
+  router.get('/:id', function(request, response) {
+      var id = request.params.id;
+      Users.findOne({ where: {id: id} })
+      .then(function(user) {
+        response.send(user);
+      })
+  });
 
-  userController.methods.post = function(request, response) {
-    var newUser = {
-      id         : request.body.id,
-      name       : request.body.name,
-      age        : request.body.age,
-      description: request.body.description,
-      images     : request.body.images
-    }
-    dbHelper.insertData(request, response, User, newUser);
-  };
+  router.post('/', function(request, response) {
+    // var newUser = {
+    //   id         : req.body.id,
+    //   name       : req.body.name,
+    //   age        : req.body.age,
+    //   description: req.body.description,
+    //   images     : req.body.images
+    // }
+  });
 
-  userController.methods.put = function(request, response) {
-    // console.log(request.params)
-  };
+  router.put('/', function(request, response) {
 
-  userController.methods.delete = function(request, response) {
+  });
+
+  router.delete('/', function(request, response) {
     
-  };
+  });
 
   return userController;
 
