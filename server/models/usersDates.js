@@ -3,12 +3,17 @@ var Users = require('./users.js');
 var Dates = require('./dates.js');
 
 module.exports = (function(){
-  UsersDates = db.define('usersDates', {
+
+  var UsersDates = db.define( 'UsersDates', {
     id: {
       type: db.Sequelize.INTEGER,
       field: 'id',
       primaryKey: true,
       autoIncrement: true
+    },
+    rating: {
+      type: db.Sequelize.INTEGER,
+      field: 'rating'
     },
     rating: {
       type: db.Sequelize.INTEGER,
@@ -23,8 +28,6 @@ module.exports = (function(){
       defaultValue: "ask",
       field: 'date_again'
     }
-  }, {
-    timestamps: true
   });
 
   Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'user_id'});

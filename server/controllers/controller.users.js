@@ -6,6 +6,14 @@ module.exports = (function(){
   var userController = template.clone({
     path: '/api/users'
   });
+
+  //userController must look like...
+  /* 
+    {
+      path: '/api/users'
+    }
+  */
+
   var router = userController.router;
 
   router.get('/', function(request, response) {

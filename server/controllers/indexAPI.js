@@ -19,5 +19,5 @@ module.exports = (function(){
   controllers.forEach(function(controller) {
     router[controller.path] = controller.router;
   });
-  return router; 
+  return router;
 })();
