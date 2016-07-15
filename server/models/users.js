@@ -2,12 +2,6 @@ var db = require('../db.js');
 
 module.exports = (function() {
   var User = db.define('users', {
-    id: {
-      type: db.Sequelize.INTEGER,
-      field: 'id',
-      primaryKey: true,
-      autoIncrement: true
-    },
     name: {
       type: db.Sequelize.STRING,
       field: 'name'
@@ -27,6 +21,10 @@ module.exports = (function() {
     imageUrl: {
       type: db.Sequelize.STRING,
       field: 'image_url'
+    },
+    rating: {
+      type: db.Sequelize.INTEGER,
+      field: 'rating'
     }
   }, {
     timestamps: true
