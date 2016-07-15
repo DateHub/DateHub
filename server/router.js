@@ -6,6 +6,11 @@ module.exports = function(app, routes) {
       for(var path in routes) {
         app.use(path, routes[path]);
       }
+    },
+    initSecured: function() {
+      for(var path in routes) {
+        app.use(path, httpHelper.ensureAuthentication, routes[path]);
+      }
     }
   };
 };
