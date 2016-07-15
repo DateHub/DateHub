@@ -3,6 +3,9 @@ var httpHelper = require('../utils/httpHelper.js');
 var tinderHelper = require('../utils/tinderHelper.js');
 var template = require('./auth.template.js');
 
+var Users = require('../models/users.js');
+var Sessions = require('../models/sessions.js');
+
 module.exports = (function() {
   var headers = {
     'platform': 'android',
@@ -30,9 +33,36 @@ module.exports = (function() {
     var data = JSON.parse(res.getBody('utf8'));
     request.session.token = data.token;
     request.session.user = tinderHelper.parsePersonData(data.user);
-    request.session.user.create_date = data.create_date;
-    response.redirect('/');
+    request.session.user.lastUpdated = data.user.create_date;
+
+    findOrCreateUser(request.session.user)
+      .then(function() {
+        response.redirect('/');
+      });
   });
+
+  function findOrCreateUser(user) {
+    return Users.findOrCreate({
+      where: { 
+        id: user.id
+      },
+      defaults: {
+        id: user.id,
+        name: user.name,
+        dob: user.dob,
+        imageUrl: user.imgUrl,
+        lastUpdated: user.lastUpdated
+      }
+    }).then(function(result) {
+      var user = result[0];
+      var isNew = result[1];
+      var msg = isNew
+        ? 'Created new User[' + user.id + ']'
+        : 'User[' + user.id + '] already exists';
+      console.log(msg);
+      return user;
+    });
+  }
 
   return tinder;
 })();

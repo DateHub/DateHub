@@ -1,7 +1,13 @@
 var db = require('../db.js');
+var Session = require('./sessions.js');
 
 module.exports = (function() {
   var User = db.define('users', {
+    id: {
+      type: db.Sequelize.STRING,
+      field: 'id',
+      primaryKey: true
+    },
     name: {
       type: db.Sequelize.STRING,
       field: 'name'
@@ -21,14 +27,12 @@ module.exports = (function() {
     imageUrl: {
       type: db.Sequelize.STRING,
       field: 'image_url'
-    },
-    rating: {
-      type: db.Sequelize.INTEGER,
-      field: 'rating'
     }
   }, {
     timestamps: true
   });
+
+  User.hasOne(Session, {as: 'sessions'});
 
   User.sync();
   return User;
