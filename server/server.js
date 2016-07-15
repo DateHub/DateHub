@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
-var session = require('express-session');
 var bodyParser = require('body-parser');
+var uuid = require('uuid');
+var cookieParser = require('cookie-parser')
 
 var config;
 try {
@@ -14,19 +15,15 @@ var router = require('./router.js');
 var controllers = require('./controllers/indexAPI.js');
 var auths = require('./auth/indexAPI.js');
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser(config.secret));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/../client'));
 
-app.use(session({
-  secret: config.secret,
-  resave: true,
-  saveUninitialized: true
-}));
+app.use(httpHelper.createSession(config.secret));
 
 router(app, auths).init();
-router(app, controllers).init();
+router(app, controllers).initSecured();
 
 module.exports = app;
