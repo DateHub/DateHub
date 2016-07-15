@@ -24,6 +24,8 @@
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.6",
     "concurrently": "^2.2.0",
+    "connect-session-sequelize": "^3.1.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "lodash": "^4.13.1",
@@ -42,6 +44,7 @@
     "require": "^2.4.20",
     "sequelize": "^3.23.4",
     "sync-request": "^3.0.1",
+    "uuid": "^2.0.2",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
