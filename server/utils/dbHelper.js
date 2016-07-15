@@ -50,13 +50,42 @@ module.exports = (function(){
     })
     .catch(function(err){
       response.status(500).send(err.message);
-    })
+    });
+  };
+
+  // reference: http://stackoverflow.com/questions/36480587/sequelize-how-to-check-if-entry-exists-in-database
+  var isIdExist = function(table, id){
+    db.table.count({where: {id: id}})
+      .then(count => {
+        if (count != 0) {
+          return true;
+        }
+        return false;
+      });
   };
 
   //PUT
+  var updateData = function(request, response, table, updatedData ,id){
+    db.table.update(updatedData, {where:{id:id}})
+      .then(function(result){
+        response.status(200).send("successfully updated");
+      })
+      .catch(function(err){
+        response.status(500).send(err.message);
+      });
+  };
 
   //DELETE
-
+  var deleteData = function(request, response, table, id){
+    db.table.findById(id)
+    .then(function(id){
+      id.destroy();
+      response.status(200).send("the id " + id + " is successfully delete.")
+    })
+    .catch(function(err){
+        response.status(500).send(err.message);
+    });
+  };
   
 
   return {

@@ -21,6 +21,10 @@ module.exports = (function() {
     imageUrl: {
       type: db.Sequelize.STRING,
       field: 'image_url'
+    },
+    rating: {
+      type: db.Sequelize.INTEGER,
+      field: 'rating'
     }
   }, {
     timestamps: true

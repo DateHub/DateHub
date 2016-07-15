@@ -26,5 +26,4 @@ module.exports = (function(){
 
   Dates.sync();
   return Dates;
-
 })();
