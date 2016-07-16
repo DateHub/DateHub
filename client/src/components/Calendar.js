@@ -5,6 +5,7 @@ import Popup from './Popup' ;
 import { Link } from 'react-router';
 import Main from './Main';
 import Notification from './Notification';
+import * as Actions from '../actions/actionCreators';
 
 // Need to add an import for the location of the dates/events themselves
 // import events from './events'
@@ -32,8 +33,27 @@ export default class Calendar extends Component {
     this.state = { 
       current: "",
       open: false,
-      notificationOpen: false
+      notificationOpen: false,
+      events: []
     };
+  }
+
+  componentDidMount() {
+    return Actions.getEvents()
+    .then(function(response) {
+      console.log("RESPONSE", response);
+      this.setEvents(response.events);
+    }.bind(this));
+  }
+
+  setEvents(events) {
+    console.log(events);
+    this.setState({
+        current: this.state.current,
+        open: this.state.open,
+        notificationOpen: this.state.notificationOpen,
+        events: events || []
+    });
   }
 
   open(selectedEvent) {
@@ -54,11 +74,11 @@ export default class Calendar extends Component {
   render() {
     return (
       <div>
-        <Link to='/api/dates'>Date List!</Link>
+        <Link to='/dates'>Date List!</Link>
         <div style={{ height: 500 }}>
           <BigCalendar
             selectable
-            events={this.props.events}
+            events={this.state.events || []}
             onSelectEvent={event => this.open(event)}
           />
           <Popup value={this.state} />

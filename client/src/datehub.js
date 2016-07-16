@@ -23,7 +23,7 @@ const router = (
       <Route path='/' component={App}>
         <IndexRoute component={Calendar}></IndexRoute>
       </Route>
-      <Route path='/api/dates' component={DateList}></Route>
+      <Route path='/dates' component={DateList}></Route>
     </Router>
   </Provider>
 )

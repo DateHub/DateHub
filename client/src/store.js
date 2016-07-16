@@ -1,20 +1,46 @@
 import { createStore, compose } from 'redux';
 import { syncHistoryWithStore } from  'react-router-redux';
 import { browserHistory } from 'react-router';
+import syncRequest from 'sync-request';
 
 // import the root reducers
 import rootReducer from './reducers/index';
+
+import axios from 'axios';
 
 // TODO: import events from database
 // import events from '.*';
 
 // create an obj for the default data
 
+
 let events = [{name: "Nancy", title: "Date with" + name, location: "Disneyland", start: new Date(2016, 6, 12, 10, 30, 0, 0), end: new Date(2016, 6, 12, 12, 30, 0, 0), notes: "She seems like a nice lady!"}, {name: "Mary-Jane", title: "Date with" + name, location: "Las Vegas", start: new Date(2016, 6, 18, 10, 30, 0, 0), end: new Date(2016, 6, 18, 12, 30, 0, 0), notes: "She seems like a nice lady too"}];
 
+// let testEvent = {
+//   name: "Nancy", 
+//   title: "Date with Nancy", 
+//   location: "Disneyland", 
+//   start: JSON.parse(test.getBody())[0].date, 
+//   end: JSON.parse(test.getBody())[0].date, 
+//   notes: "This better work!"
+// }
+
 const defaultState = {
-  events: events
+  events: []
 };
+
+// syncRequest('GET', '/api/dates/month/07/year/2016').body
+
+
+// console.log("TEST", test);
+
+// axios.get('/api/dates/month/07/year/2016')
+// .then((response) => {
+//   defaultState.events = response.data;
+// })
+// .catch((error) => {
+//   alert(error);
+// });
 
 const store = createStore(rootReducer, defaultState);
 

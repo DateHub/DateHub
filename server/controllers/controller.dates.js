@@ -12,8 +12,8 @@ module.exports = (function() {
   });
   var router = dateController.router;
 
-  router.get('/:userid', function(request, response) {
-    var userId = request.params.userid;
+  router.get('/', function(request, response) {
+    var userId = request.session.user.id;
     var dates = [];
     var results = [];
     
@@ -46,12 +46,13 @@ module.exports = (function() {
   });
 
   router.get('/month/:month/year/:year', function(request, response) {
+    var userId = request.session.user.id;
     var month = request.params.month;
     var year = request.params.year;
     var dates = [];
     var results = [];
 
-    UsersDates.findAll({where: { user_id: '1' }})  // returns array of object
+    UsersDates.findAll({where: { user_id: userId }})  // returns array of object
     .then(function(data) {
       // console.log(data);
       data.forEach(function(date) {
