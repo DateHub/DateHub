@@ -1,6 +1,3 @@
-//testfile
-var test = require('./models/test.js');
-
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -27,5 +24,6 @@ app.use(httpHelper.createSession(config.secret));
 
 router(app, auths).init();
 router(app, controllers).initSecured();
+
 
 module.exports = app;
