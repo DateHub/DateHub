@@ -20,6 +20,8 @@ module.exports = (function() {
   });
 
   router.post('/', function(request, response) {
+    console.log('yup', request.body)
+    response.send(request.body);
     // DbHelper.insertData(request, response, Dates, {
     //   location: request.___,
     //   time: request.___,
