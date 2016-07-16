@@ -57,7 +57,8 @@ module.exports = (function() {
       id: person._id,
       name: person.name,
       dob: person.birth_date,
-      imgUrl: person.photos[0] && buildImageUrl(person._id, person.photos[0].fileName)
+      imageUrl: person.photos[0] &&
+        buildImageUrl(person._id, person.photos[0].fileName)
     };
   }
 

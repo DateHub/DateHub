@@ -12,13 +12,18 @@ module.exports = (function() {
     matchId: {
       type: db.Sequelize.STRING,
       field: 'match_id'
+    },
+    userId1: {
+      type: db.Sequelize.STRING,
+      field: 'user_id_1'
+    },
+    userId2: {
+      type: db.Sequelize.STRING,
+      field: 'user_id_2'
     }
   }, {
     timestamp: true
   }); 
-
-  Users.belongsToMany(Matches, {through: Matches, foreignKey: 'user_id', as: 'user1_id'});
-  Users.belongsToMany(Matches, {through: Matches, foreignKey: 'user_id', as: 'user2_id'});   
 
   Matches.sync();
   return Matches;
