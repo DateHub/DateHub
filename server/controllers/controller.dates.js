@@ -63,22 +63,17 @@ module.exports = (function() {
       });
       return results;
     })
+    // .then filter out array of data object for month that we're looking for
     .then(function(result) {
       response.status(200).send(result);
     })
     .catch(function() {
       response.status(500).send(err.message);
     });
-
-    // DbHelper.getAllOfField(request, response, UsersDates, {user_id: request.___})
-    //   .then(function(data) {
-    //     DbHelper.getRecordById(request, response, Dates, data.id) /* ??? */
-    //   });
   });
 
   router.post('/', function(request, response) {
 
-    var userId = request.session.user.id;
     // JSON object
     // console.log("REQUEST HERE!!!! ", request.body);
 
@@ -87,27 +82,52 @@ module.exports = (function() {
       date: request.body.date
     };
 
+    // var userId = request.session.user.id;
+
     Dates.create(newDate)
-    .then(function(date) {  // trying to set foreign keys here...
+    .then(function(date) {
       UsersDates.create({
-        user_id: userId,
+        // user_id: userId,
         date_id: date.dataValues.id
       });
+      console.log("DAAAAAATE: ", date);
+      return date;
     })
     .then(function(date) {
       response.status(200).send('success');
     })
-    .catch(function() {
-      response.status(500).send(err.message);
+    .catch(function(err) {
+      response.status(500).send('fail');
     });
+  });
 
+  router.put('/:dateid', function(request, response) {
+    var dateId = request.params.dateid;
+    var updatedDate = {
+      location: request.body.location,
+      date: request.body.date
+    };
 
-    // DbHelper.insertData(request, response, Dates, {
-    //   location: request.___,
-    //   time: request.___,
-    //   date: request.___
-    // });
+    Dates.update(updatedDate, {where: { id: dateId }})
+    .then(function() {
+      response.status(200).send('update success');
+    })
+    .catch(function() {
+      response.status(500).send('update failed');
+    });
+  });
 
+  router.delete('/:dateid', function(request, response) {
+    var dateId = request.params.dateid;
+
+    Dates.findById(dateId)
+    .then(function(row) {
+      row.destroy();
+      response.status(200).send('delete success');
+    })
+    .catch(function() {
+      response.status(500).send('delete fail');
+    });
   });
 
   return dateController;
