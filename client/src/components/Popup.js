@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import DateTimeField from 'react-bootstrap-datetimepicker';
+import Moment from 'moment';
+import axios from 'axios';
+
 // import ReactDOM from 'react-dom';
 
 // // Need to add an import for the location of the dates/events themselves
@@ -20,12 +24,15 @@ const customStyles = {
     zIndex:  1000
   },
   content : {
+    padding               : '0px',
+    width                 : '34%',
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    overflow              : 'hidden'
   }
 };
 
@@ -61,55 +68,78 @@ export default class Popup extends Component {
   }
 
   afterOpenModal() {
-    this.refs.subtitle.style.color = '#f00';
+    // Nothing to do
   }
 
   closeModal(event) {
-    event.preventDefault();
+    event && event.preventDefault();
     this.setState({
       modalIsOpen: false
     });
   }
 
   save(event) {
-    event.preventDefault();
-
+    event && event.preventDefault();
+    let date = this.refs.date.refs.datetimepicker.firstChild.attributes[2].nodeValue;
+    let time = this.refs.time.refs.datetimepicker.firstChild.attributes[2].nodeValue;
+    let start = Moment(date + " " + time, "MM/DD/YYYY hh:mm A").toDate();
     let updatedEvent = {
-      location: this.refs.location || "",
-      name: this.refs.name || "",
-      notes: this.refs.notes || "",
-      start: this.refs.start || "",
-      end: this.refs.end || ""
+      location: this.refs.location.value || "",
+      name: this.refs.name.value || "",
+      notes: this.refs.notes.value || "",
+      date: start || ""
     };
+    let modal = this;
 
-    this.closeModal();
-
-    /* TODO: someHelperFunction.axios(event) => {
-        should send events to helper function which updates the db
-
-      } */
-
+    axios.post('/api/dates', updatedEvent)
+    .then((response) => {
+      modal.closeModal();
+    })
+    .catch((error) => {
+      alert(error);
+    });
   }
 
   render() {
     return (
-      <div>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}>
-          <h2 ref="subtitle">Date Info</h2>
-          <form className="eventEditor">
-            <button className="saveEvent" type="submit" onSubmit={this.save}>Save</button>
-            <button onClick={this.closeModal}>Close</button>
-            <input type="datetime" defaultValue={this.state.event.start} placeholder="Enter a start time" ref="start"/>
-            <input type="text" defaultValue={this.state.event.name} placeholder="Enter a name" ref="name"/>
-            <input type="text" defaultValue={this.state.event.location} placeholder="Enter a location" ref="location"/>
-            <input type="text" defaultValue={this.state.event.notes} placeholder="Notes/description" ref="notes"/>
-          </form>
-        </Modal>
-      </div>
+      <Modal
+        isOpen={this.state.modalIsOpen}
+        onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        style={customStyles}>
+        <form className="eventEditor">
+          <div className="panel panel-primary no-margin">
+            <div className="panel-heading subtitle">
+              <h1 className="center-text">Date Info</h1>
+            </div>
+            <div className="panel-body">
+              <div className="form-group form-padding">
+                <div className="row">
+                  <div className="col-md-6">
+                    <DateTimeField mode="date" dateTime={this.state.event.start} ref="date"/>
+                  </div>
+                  <div className="col-md-6">
+                    <DateTimeField mode="time" dateTime={this.state.event.start} ref="time" />
+                  </div>
+                </div>
+                <input className="form-control" type="text" defaultValue={this.state.event.name} placeholder="Enter a name" ref="name"/>
+                <input className="form-control" type="text" defaultValue={this.state.event.location} placeholder="Enter a location" ref="location"/>
+                <input className="form-control" type="text" defaultValue={this.state.event.notes} placeholder="Notes/description" ref="notes"/>
+              </div>
+            </div>
+            <div className="panel-footer primary center-text">
+              <div className="row">
+                <div className="col-md-6">
+                  <button className="btn btn-danger full-width" onClick={this.closeModal}>Close</button>
+                </div>
+                <div className="col-md-6">
+                  <button className="saveEvent btn btn-success full-width" onClick={this.save}>Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </Modal>
     );
   }
 }
