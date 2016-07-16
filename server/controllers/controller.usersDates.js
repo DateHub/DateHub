@@ -14,46 +14,53 @@ module.exports = (function(){
 
   //gets all the date id first and
   //gets all the records for a user id
-  router.get('/:userId', function(request, response) {
+  router.get('/user/:userId', function(request, response) {
     var id = request.params.userId;
     UsersDates.findAll({where:{user_id:id}})
       .then(function(data){
         response.status(200).send(data);
       })
       .catch(function(err){
-        response.status(500).send(data);
+        response.status(500).send(err.message);
       });
   });
 
-  //gets all (two) records for a date_id
-  router.get('/:dateId') {
+  // gets all (two) records for a date_id
+  router.get('/date/:dateId', function(request, response) {
     var id = request.params.dateId;
     UsersDates.findAll({where:{date_id:id}})
       .then(function(data){
         response.status(200).send(data);
       })
       .catch(function(err){
-        response.status(500).send(data);
+        response.status(500).send(err.message);
       });
-  }
-
-  router.post('/:id', function(request, response) {
-    var id = request.params.dateId;
-    dbHelper.insertData(request, response, UsersDates, newData);
-
   });
 
-  // add new record
-  router.post(){}
+  // insert the records into the table
+  router.post('/post', function(request, response) {
 
-  //update note: need to know userId and dateId
-  router.put('/:id/:dateId/:note', function(request, response) {
-    var userId = request.params.id;
-    var dateId = request.params.id;
-    var note = request.body.note;
+    var newData = {
+      rating: request.body.rating,
+      notes: request.body.notes,
+      dateAgain: request.body.dateAgain,
+      user_id: request.body.user_id,
+      date_id: request.body.date_id
+    }
+
+    dbHelper.insertData(request, response, UsersDates, newData);
+  });
+
+  //update notes: need to know userId and dateId
+  router.put('/update/notes/:userId/:dateId', function(request, response) {
+    var userId = request.params.userId;
+    var dateId = request.params.dateId;
+
+    var newData = request.body.notes;
+
     UsersDates.find({where:{user_id:userId, date_id:dateId}})
-      .then(function(){
-        UsersDates.updateAttributes({note:note});
+      .then(function(record){
+        record.updateAttributes({notes:newData});
         response.status(200).send("successfully updated");
       })
       .catch(function(err){
@@ -62,13 +69,15 @@ module.exports = (function(){
   });
 
   //update rating
-  router.put('/:id/:dates/:rating', function(request, response) {
-    var userId = request.params.id;
-    var dateId = request.params.id;
-    var rating = request.body.rating;
+  router.put('/update/rating/:userId/:dateId', function(request, response) {
+    var userId = request.params.userId;
+    var dateId = request.params.dateId;
+
+    var newData = request.body.rating;
+
     UsersDates.find({where:{user_id:userId, date_id:dateId}})
-      .then(function(){
-        UsersDates.updateAttributes({rating:rating});
+      .then(function(record){
+        record.update({rating:newData});
         response.status(200).send("successfully updated");
       })
       .catch(function(err){
@@ -76,15 +85,16 @@ module.exports = (function(){
       });
   });
 
-
   //update dateAgain
-  router.put('/:id/:dates/:review', function(request, response) {
-    var userId = request.params.id;
-    var dateId = request.params.id;
-    var review = request.body.review;
+  router.put('/update/dateAgain/:userId/:dateId', function(request, response) {
+    var userId = request.params.userId;
+    var dateId = request.params.dateId;
+
+    var newData = request.body.dateAgain;
+
     UsersDates.find({where:{user_id:userId, date_id:dateId}})
-      .then(function(){
-        UsersDates.updateAttributes({review:review});
+      .then(function(record){
+        record.updateAttributes({dateAgain:newData});
         response.status(200).send("successfully updated");
       })
       .catch(function(err){

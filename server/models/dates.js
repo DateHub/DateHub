@@ -24,7 +24,6 @@ module.exports = (function(){
     timestamps : true
   });
 
-  Dates.sync({force:true});
   Dates.sync();
   return Dates;
 })();

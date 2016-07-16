@@ -13,10 +13,12 @@ module.exports = (function(){
     },
     rating: {
       type: db.Sequelize.INTEGER,
-      field: 'rating'
+      field: 'rating',
+      allowNull: true
     },
     notes: {
       type: db.Sequelize.STRING,
+      defaultValue: "",
       field: 'notes'
     },
     dateAgain: {
@@ -29,7 +31,9 @@ module.exports = (function(){
   Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'user_id'});
   Dates.belongsToMany(Users, {through: UsersDates, foreignKey: 'date_id'});
 
-  UsersDates.sync({force:true});
-  // UsersDates.sync();
+
+  // to reset the table, uncomment line 36 and comment line 37
+  // UsersDates.sync({force:true});
+  UsersDates.sync();
   return UsersDates;
 })();
