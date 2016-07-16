@@ -2,7 +2,9 @@ var template = require('./controller.template.js');
 var DbHelper = require('../utils/dbHelper.js');
 var Dates = require('../models/dates.js');
 var UsersDates = require('../models/usersDates.js');
+var _ = require('lodash');
 
+var db = require('../db.js');
 
 module.exports = (function() {
   var dateController = template.clone({
@@ -10,22 +12,169 @@ module.exports = (function() {
   });
   var router = dateController.router;
 
-  router.get('/', function(request, response) {
-    // request.session.user is an object
+  router.get('/:userid', function(request, response) {
+    var userId = request.params.userid;
+    var dates = [];
+    var results = [];
     
-    // DbHelper.getAllOfField(request, response, UsersDates, {user_id: request.___})
-    //   .then(function(data) {
-    //     DbHelper.getRecordById(request, response, Dates, data.id) /* ??? */
+    UsersDates.findAll({where: { user_id: userId }})  // returns array of object
+    .then(function(data) {
+      // console.log(data);
+      data.forEach(function(date) {
+        dates.push(date.date_id);
+      });
+      return dates;
+    })
+    .then(function(dates) {
+      return Promise.all(_.map(dates, function(dateId) {
+        return Dates.findAll({where: { id: dateId }});
+      }))
+      .then(function(values) {
+        var temp = [];
+        values.forEach(function(value) {
+          temp.push(value[0]);
+        });
+        return temp;
+      });
+    })
+    .then(function(result) {
+      response.status(200).send(result);
+    })
+    .catch(function(err) {
+      response.status(500).send(err.message);
+    });
+  });
+
+  router.get('/month/:month/year/:year', function(request, response) {
+    var month = request.params.month;
+    var year = request.params.year;
+    var dates = [];
+    var results = [];
+
+    UsersDates.findAll({where: { user_id: '1' }})  // returns array of object
+    .then(function(data) {
+      // console.log(data);
+      data.forEach(function(date) {
+        dates.push(date.date_id);
+      });
+      return dates;
+    })
+    .then(function(dates) {
+      return Promise.all(_.map(dates, function(dateId) {
+        return Dates.findAll({where: { id: dateId }});
+      }))
+      .then(function(values) {
+        var temp = [];
+        values.forEach(function(value) {
+          temp.push(value[0]);
+        });
+        return temp;
+      });
+    })
+    .then(function(dateList) {
+      var monthStr = {
+        '01': 'Jan',
+        '02': 'Feb',
+        '03': 'Mar',
+        '04': 'Apr',
+        '05': 'May',
+        '06': 'Jun',
+        '07': 'Jul',
+        '08': 'Aug',
+        '09': 'Sep',
+        '10': 'Oct',
+        '11': 'Nov',
+        '12': 'Dec'
+      };
+      dateList = dateList.filter(function(date) {
+        var strungDate = date.date.toString();
+
+        console.log(monthStr[month])
+
+        return strungDate.slice(4, 7) === monthStr[month] && strungDate.slice(11, 15) === year;
+      });
+      return dateList;
+    })
+    // .then(function(dates) {
+    //   dates.forEach(function(dateId) {
+    //     Dates.findAll({where: { id: dateId }})
+    //     .then(function(data) {
+    //       console.log("DATAAAAAA ", data);
+    //       results.push(data);
+    //     });
     //   });
+    // })
+    // .then(function() {
+    //   results = results.filter(function(date) {
+    //     var strungDate = date.date.toString();
+    //     return strungDate.slice(0, 7) === selectedDate;
+    //   });
+    // })
+    // .then filter out array of data object for month that we're looking for
+    .then(function(result) {
+      response.status(200).send(result);
+    })
+    .catch(function(err) {
+      response.status(500).send(err.message);
+    });
   });
 
   router.post('/', function(request, response) {
-    // DbHelper.insertData(request, response, Dates, {
-    //   location: request.___,
-    //   time: request.___,
-    //   date: request.___
-    // });
 
+    // JSON object
+    // console.log("REQUEST HERE!!!! ", request.body);
+
+    var newDate = {
+      location: request.body.location,
+      date: request.body.date
+    };
+
+    var userId = request.session.user.id;
+
+    Dates.create(newDate)
+    .then(function(date) {
+      UsersDates.create({
+        user_id: userId,
+        date_id: date.dataValues.id
+      });
+      console.log("DAAAAAATE: ", date);
+      return date;
+    })
+    .then(function(date) {
+      response.status(200).send('success');
+    })
+    .catch(function(err) {
+      response.status(500).send('fail');
+    });
+  });
+
+  router.put('/:dateid', function(request, response) {
+    var dateId = request.params.dateid;
+    var updatedDate = {
+      location: request.body.location,
+      date: request.body.date
+    };
+
+    Dates.update(updatedDate, {where: { id: dateId }})
+    .then(function() {
+      response.status(200).send('update success');
+    })
+    .catch(function() {
+      response.status(500).send('update failed');
+    });
+  });
+
+  router.delete('/:dateid', function(request, response) {
+    var dateId = request.params.dateid;
+
+    Dates.findById(dateId)
+    .then(function(row) {
+      row.destroy();
+      response.status(200).send('delete success');
+    })
+    .catch(function() {
+      response.status(500).send('delete fail');
+    });
   });
 
   return dateController;
