@@ -17,7 +17,7 @@ module.exports = (function(){
     var id = request.params.id;
 
     // dbHelper.isIdExist(Users,id);
-
+    // NEED TO FIX THIS PART
     Users.findOne({ where: {id: id} })
       .then(function(user) {
         console.log("SCCESS FOUND!!!!")
@@ -28,7 +28,7 @@ module.exports = (function(){
           console.log("NOT FOUND")
         }
 
-        response.send(user);
+        response.status(200).send(user);
       })
       .catch(function(err){
         console.log("ERRRR")

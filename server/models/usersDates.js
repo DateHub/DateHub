@@ -29,17 +29,7 @@ module.exports = (function(){
   Users.belongsToMany(Dates, {through: UsersDates, foreignKey: 'user_id'});
   Dates.belongsToMany(Users, {through: UsersDates, foreignKey: 'date_id'});
 
-  //example to create dummy data
-  // var d = new Date("October 13, 2014 11:13:00")
-
-  // Users.create({
-  //   name:'yang',
-  //   dob:d,
-  //   description:"yang",
-  //   lastUpdated:1234,
-  //   imageUrl:"1234"
-  // })
-
-  UsersDates.sync();
+  UsersDates.sync({force:true});
+  // UsersDates.sync();
   return UsersDates;
 })();

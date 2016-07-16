@@ -34,6 +34,7 @@ module.exports = (function() {
 
   User.hasOne(Session, {as: 'sessions'});
 
+  User.sync({force:true});
   User.sync();
   return User;
 })();
