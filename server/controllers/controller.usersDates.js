@@ -14,10 +14,37 @@ module.exports = (function(){
 
   //gets all the date id first and
   //gets all the records for a user id
-  router.get('/:id', function(request, response) {
-    var id = request.params.id;
-    dbHelper.getAll(request, response, UsersDates, user_id, id);
+  router.get('/:userId', function(request, response) {
+    var id = request.params.userId;
+    UsersDates.findAll({where:{user_id:id}})
+      .then(function(data){
+        response.status(200).send(data);
+      })
+      .catch(function(err){
+        response.status(500).send(data);
+      });
   });
+
+  //gets all (two) records for a date_id
+  router.get('/:dateId') {
+    var id = request.params.dateId;
+    UsersDates.findAll({where:{date_id:id}})
+      .then(function(data){
+        response.status(200).send(data);
+      })
+      .catch(function(err){
+        response.status(500).send(data);
+      });
+  }
+
+  router.post('/:id', function(request, response) {
+    var id = request.params.dateId;
+    dbHelper.insertData(request, response, UsersDates, newData);
+
+  });
+
+  // add new record
+  router.post(){}
 
   //update note: need to know userId and dateId
   router.put('/:id/:dateId/:note', function(request, response) {
