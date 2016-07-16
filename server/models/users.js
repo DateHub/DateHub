@@ -10,11 +10,13 @@ module.exports = (function() {
     },
     name: {
       type: db.Sequelize.STRING,
-      field: 'name'
+      field: 'name',
+      allowNull: false
     },
     dob: {
       type: db.Sequelize.DATE,
-      field: 'dob'
+      field: 'dob',
+      allowNull: false
     },
     description: {
       type: db.Sequelize.STRING,
@@ -34,6 +36,8 @@ module.exports = (function() {
 
   User.hasOne(Session, {as: 'sessions'});
 
+  // to reset the table, uncomment line 40 and comment line 41
+  // User.sync({force:true});
   User.sync();
   return User;
 })();

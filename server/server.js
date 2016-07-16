@@ -25,4 +25,5 @@ app.use(httpHelper.createSession(config.secret));
 router(app, auths).init();
 router(app, controllers).initSecured();
 
+
 module.exports = app;

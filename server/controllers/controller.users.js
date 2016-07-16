@@ -17,18 +17,18 @@ module.exports = (function(){
     var id = request.params.id;
 
     // dbHelper.isIdExist(Users,id);
-
+    // NEED TO FIX THIS PART
     Users.findOne({ where: {id: id} })
       .then(function(user) {
-        console.log("SCCESS FOUND!!!!")
 
         if(user){
           console.log("FOUND")
+          response.status(200).send("user has been found");
         }else{
           console.log("NOT FOUND")
+          response.status(200).send("the user does not exist");
         }
 
-        response.send(user);
       })
       .catch(function(err){
         console.log("ERRRR")
@@ -57,8 +57,7 @@ module.exports = (function(){
           dob        : request.body.dob,
           description: request.body.description,
           lastUpdated: request.body.lastUpdated,
-          imageUrl   : request.body.imageUrl,
-          rating     : request.body.rating
+          imageUrl   : request.body.imageUrl
         }
         //insert the user info into the User table
         dbHelper.insertData(request, response, Users, newUser);
@@ -71,36 +70,37 @@ module.exports = (function(){
     dbHelper.isIdExist(Users, id)
       .then(function(exist){
       // if id exist
-      if (!exist) {
-        response.status(200).send("the id already exist");
-        return;
-      }
+        if (!exist) {
+          response.status(200).send("the id already exist");
+          return;
+        }
 
-      //if id does not exist
-      var newUser = {
-        id         : id,
-        name       : request.body.name,
-        dob        : request.body.dob,
-        description: request.body.description,
-        lastUpdated: request.body.lastUpdated,
-        imageUrl   : request.body.imageUrl,
-        rating     : request.body.rating
-      }
-      //insert the user info into the User table
-      dbHelper.updateData(request, response, Users, newUser, id);
+        //if id does not exist
+        var newUser = {
+          id         : id,
+          name       : request.body.name,
+          dob        : request.body.dob,
+          description: request.body.description,
+          lastUpdated: request.body.lastUpdated,
+          imageUrl   : request.body.imageUrl
+        }
+        //insert the user info into the User table
+        dbHelper.updateData(request, response, Users, newUser, id);
     })
   });
 
   router.delete('/:id', function(request, response) {
     var id = request.params.id;
     //check if the id exist
-    if (!exist) {
-      respond.status(404).send("the id does not exist");
-    }
+    dbHelper.isIdExist(Users, id)
+      .then(function(exist){
+        if (!exist) {
+          respond.status(404).send("the id does not exist");
+        }
 
-    dbHelper.deleteData(request, response, Users, id);
+        dbHelper.deleteData(request, response, Users, id);
+    });
   });
 
   return userController;
-
 })();

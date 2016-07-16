@@ -8,7 +8,7 @@ module.exports = (function(){
   //inserting data into a table
   var insertData = function(request, response, table, newData){
     table.create(newData)
-      .then(function(){
+      .then(function(data){
         response.status(200).send(data);
       })
       .catch(function(err){
@@ -108,7 +108,8 @@ module.exports = (function(){
     getAll: getAll,
     getRecordById: getRecordById,
     updateData: updateData,
-    calculateAge: calculateAge
+    calculateAge: calculateAge,
+    deleteData: deleteData
   };
 
 })();
