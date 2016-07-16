@@ -28,7 +28,7 @@ module.exports = (function() {
           id: userId
         }
       }).then(function(user) {
-        return user.updateAttributes({lastUpdated: Date().now()});
+        return user.updateAttributes({lastUpdated: Date.now()});
       }).then(function(user) {
         return lastUpdated;
       }).catch(function(error) {
