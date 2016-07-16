@@ -2,6 +2,7 @@ var request = require('request');
 var session = require('express-session');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var db = require('../db.js');
+var uuid = require('uuid');
 
 module.exports = (function(){
   return {

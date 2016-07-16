@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var uuid = require('uuid');
 var cookieParser = require('cookie-parser')
 
 var config;
