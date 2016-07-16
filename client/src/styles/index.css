@@ -1,0 +1,37 @@
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.center {
+  margin: auto;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.form-padding > * {
+  margin-bottom: 5px;
+}
+
+.margin-bottom-small {
+  margin-bottom: 5px;
+}
+
+.margin-sides-small {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.primary {
+  background-color: #337ab7;
+  border-color: #337ab7;
+}

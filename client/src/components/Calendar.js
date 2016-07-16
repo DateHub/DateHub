@@ -59,9 +59,6 @@ export default class Calendar extends Component {
           <BigCalendar
             selectable
             events={this.props.events}
-            defaultView='month'
-            scrollToTime={new Date(1970, 1, 1, 6)}
-            defaultDate={new Date()}
             onSelectEvent={event => this.open(event)}
           />
           <Popup value={this.state} />
