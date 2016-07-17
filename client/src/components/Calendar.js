@@ -68,18 +68,19 @@ export default class Calendar extends Component {
     // let time = this.refs.time.refs.datetimepicker.firstChild.attributes[2].nodeValue;
     // let start = moment(date + " " + time, "MM/DD/YYYY hh:mm A").toDate();
 
-    // let newEvent = {
-    //   title: title,
-    //   location: this.refs.location.value || "",
-    //   name: this.refs.name.value || "",
-    //   notes: this.refs.notes.value || "",
-    //   start: start || ""
-    // };
+    let newEvent = {
+      // title: title,
+      location: this.refs.location.value || "",
+      name: this.refs.name.value || "",
+      notes: this.refs.notes.value || "",
+      start: this.refs.start.value || "",
+      end: moment().endOf(this.refs.start.value)
+    };
 
-    // return Actions.addEvent(newEvent)
-    // .then(() => {
-    //   return this.getAllEvents();
-    // });
+    return Actions.addEvent(newEvent)
+    .then(() => {
+      return this.getAllEvents();
+    });
   }
 
   open(selectedEvent) {
@@ -98,6 +99,12 @@ export default class Calendar extends Component {
           onSelectEvent={event => this.open(event)}
         />
         <Popup value={this.state} />
+        <form type="submit">
+          <input type="text" ref="name"/>
+          <input type="text" ref="location"/>
+          <input type="datetime-local" ref="start"/>
+          <button type="submit" onSubmit={this.createEvent.bind(this)}>Submit</button>
+        </form>
       </div>
     );
   }

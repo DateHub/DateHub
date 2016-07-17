@@ -2,7 +2,10 @@ import axios from 'axios';
 
 // get events
 export function getEvents() {
-  return axios.get('/api/dates/month/07/year/2016')
+  let Today = new Date();
+  let month = Today.getMonth() + 1;
+  let year = Today.getYear();
+  return axios.get('/api/dates/month/' + month + '/year/' +year)
   .then((response) => {
     return {
       type: 'GET_EVENTS',
