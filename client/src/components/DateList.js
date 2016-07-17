@@ -28,7 +28,16 @@ const DateList = React.createClass({
   render() {
     return (
       <div>
-        <Link to='/'>Calendar!</Link>
+        <nav className="navbar navbar-inverse navbar-fixed-top">
+          <div className="navbar-header">
+            <div className="navbar-brand">
+              <img alt="DateHub" src=""/>
+            </div>
+          </div>
+          <Link to="/" className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
+            Calendar
+          </Link>
+        </nav>
         <div className="dates">
           {events.map(this.renderEvent)}
         </div>
