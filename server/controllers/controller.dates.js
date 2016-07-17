@@ -87,6 +87,7 @@ module.exports = (function() {
         '12': 'Dec'
       };
       dateList = dateList.filter(function(date) {
+        console.log("Date", date);
         var strungDate = date.date.toString();
 
         return strungDate.slice(4, 7) === monthStr[month] && strungDate.slice(11, 15) === year;

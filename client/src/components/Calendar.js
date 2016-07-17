@@ -5,6 +5,7 @@ import Popup from './Popup' ;
 import { Link } from 'react-router';
 import Main from './Main';
 import * as Actions from '../actions/actionCreators';
+import DateTimeField from 'react-bootstrap-datetimepicker';
 
 // Need to add an import for the location of the dates/events themselves
 // import events from './events'
@@ -37,20 +38,61 @@ export default class Calendar extends Component {
   }
 
   componentDidMount() {
+    return this.getAllEvents();
+  }
+
+  componentWillReceiveProps() {
+    return this.getAllEvents();
+  }
+
+  getAllEvents() {
     return Actions.getEvents()
-    .then(function(response) {
+    .then((response) => {
       console.log("RESPONSE", response);
-      this.setEvents(response.events);
-    }.bind(this));
+      return this.setEvents(response.events);
+    });
   }
 
   setEvents(events) {
-    console.log(events);
+
+    // Events won't render to calendar without start, and end time--properties on object have to be explicitly start and end
+    // Also need to deal with formatting of date
+
+    // console.log("events", events);
+    // for(let i = 0; i < events.length; i++) {
+    //   events[i].title = "test";
+    //   events[i].start = events[i].date;
+    //   events[i].end = new Date(2016, 8, 12, 12, 30, 0, 0)
+    // }
+
     this.setState({
         current: this.state.current,
         open: this.state.open,
-        events: events || []
+        events: events
     });
+  }
+
+  createEvent(event) {
+    // Need to make a button and modal to deal with this, but the addEvent function works perfectly
+
+    // event.preventDefault();
+    // let title = "Date with " + this.refs.name.value +  " at " + this.refs.location.value;
+    // let date = this.refs.date.refs.datetimepicker.firstChild.attributes[2].nodeValue;
+    // let time = this.refs.time.refs.datetimepicker.firstChild.attributes[2].nodeValue;
+    // let start = moment(date + " " + time, "MM/DD/YYYY hh:mm A").toDate();
+
+    // let newEvent = {
+    //   title: title,
+    //   location: this.refs.location.value || "",
+    //   name: this.refs.name.value || "",
+    //   notes: this.refs.notes.value || "",
+    //   start: start || ""
+    // };
+
+    // return Actions.addEvent(newEvent)
+    // .then(() => {
+    //   return this.getAllEvents();
+    // });
   }
 
   open(selectedEvent) {
@@ -65,7 +107,7 @@ export default class Calendar extends Component {
       <div>
         <BigCalendar
           selectable
-          events={this.state.events || []}
+          events={this.state.events}
           onSelectEvent={event => this.open(event)}
         />
         <Popup value={this.state} />
