@@ -81,5 +81,35 @@ module.exports = (function() {
     });
   });
 
+  router.get('/dateless', function(request, response) {
+    var userId = request.session.user.id;
+    Match.findAll({
+      where: db.Sequelize.and({ 
+          status: 'DATE_NOT_SET' 
+        }, db.Sequelize.or({
+          userId1: userId
+        }, {
+          userId2: userId
+        })
+      )
+    }).then(function(results) {
+      return _.map(results, function(result) {
+        return {
+          id: (result.dataValues.userId1 !== userId)
+            ? result.dataValues.userId1
+            : result.dataValues.userId2
+        };
+      });
+    }).then(function(unsetDateIds) {
+      return User.findAll({
+        where: db.Sequelize.or.apply(db.Sequelize, unsetDateIds)
+      }).then(function(users) {
+        response.send(users);
+      })
+    }).catch(function(error) {
+      response.status(500).send(error);
+    });
+  });
+
   return matchController;
 })();

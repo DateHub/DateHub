@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router';
 import Notification from './Notification';
 
@@ -7,7 +8,8 @@ export default class Main extends Component {
     super(props);
 
     this.state = { 
-      notificationOpen: false
+      notificationOpen: false,
+      newMatches: []
     };
   }
 
@@ -15,6 +17,34 @@ export default class Main extends Component {
     this.setState({
       notificationOpen: true,
     });
+  }
+
+  componentDidMount() {
+    axios.get('/api/matches/dateless')
+      .then(results => {
+        this.setState({
+          newMatches: results.data || []
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    (function getNewMatches(context) {
+      let halfHour = 30 * 60 * 1000;
+      axios.get('/api/matches/new')
+      .then(results => {
+        context.setState({
+          newMatches: context.state.newMatches.concat(results.data)
+        });
+        setTimeout(function() {
+          return getNewMatches(context);
+        }, halfHour);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    })(this);
   }
 
   render() {
@@ -31,9 +61,10 @@ export default class Main extends Component {
           </Link>
           <button className="btn btn-primary navbar-btn pull-right margin-sides-small" 
                   type="button"
+                  data-toggle="popover" 
                   onClick={this.notificationOpen.bind(this)}>
             <span className="glyphicon glyphicon-heart margin-sides-small" aria-hidden="true"></span>  
-            <span className="badge">4</span>
+            <span className="badge">{this.state.newMatches.length}</span>
           </button>
         </nav>
         <Notification value={this.state}/>
