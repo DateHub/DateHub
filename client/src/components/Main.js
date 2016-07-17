@@ -26,7 +26,7 @@ export default class Main extends Component {
               <img alt="DateHub" src=""/>
             </div>
           </div>
-          <Link to="/api/dates" className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
+          <Link to="/dates" className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
             Dates <span className="badge">5</span>
           </Link>
           <button className="btn btn-primary navbar-btn pull-right margin-sides-small" 
