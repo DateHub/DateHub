@@ -4,8 +4,10 @@ import * as actionCreators from '../actions/actionCreators';
 import Main from './Main';
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    events: state.events
+    events: state.events,
+    auth: state.auth
   };
 }
 

@@ -7,18 +7,6 @@ import Main from './Main';
 import * as Actions from '../actions/actionCreators';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 
-// Need to add an import for the location of the dates/events themselves
-// import events from './events'
-// See below for format of each event
-/*
-{
-    'title': 'Meeting',
-    'start': new Date(2015, 3, 12, 10, 30, 0, 0),
-    'end': new Date(2015, 3, 12, 12, 30, 0, 0),
-    desc: 'Pre-meeting meeting, to prepare for the meeting'
-}
-*/
-
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment)
 );
@@ -48,7 +36,6 @@ export default class Calendar extends Component {
   getAllEvents() {
     return Actions.getEvents()
     .then((response) => {
-      console.log("RESPONSE", response);
       return this.setEvents(response.events);
     });
   }
@@ -65,11 +52,11 @@ export default class Calendar extends Component {
     //   events[i].end = new Date(2016, 8, 12, 12, 30, 0, 0)
     // }
 
-    this.setState({
-        current: this.state.current,
-        open: this.state.open,
-        events: events
-    });
+    // this.setState({
+    //     current: this.state.current,
+    //     open: this.state.open,
+    //     events: events
+    // });
   }
 
   createEvent(event) {

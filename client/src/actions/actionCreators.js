@@ -4,7 +4,6 @@ import axios from 'axios';
 export function getEvents() {
   return axios.get('/api/dates/month/07/year/2016')
   .then((response) => {
-    console.log("getting action events", response);
     return {
       type: 'GET_EVENTS',
       events: response.data
@@ -50,4 +49,21 @@ export function deleteEvent(eventId) {
   .catch((error) => {
     console.log(error);
   });
+}
+
+// facebook/tinder login
+export function tinderLogin(token) {
+  return axios.post('/auth/tinder', {
+      facebook_token: token
+    })
+    .then((response) => {
+      console.log("tinder login", response);
+      return {
+        type: 'LOGIN',
+        auth: true
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
