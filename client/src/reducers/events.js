@@ -3,8 +3,14 @@
 // 1. the action (what happened)
 // 2. a copy of the current state
 
-function changeEvents(state = [], action) {
+function events(state = [], action) {
   switch(action.type) {
+    case 'GET_EVENTS' :
+      console.log("Getting events!");
+      return [...state, {
+        events: action.events
+      }];
+
     case 'ADD_EVENT' :
       // TODO: get ID of event after it's added to DB
       console.log("Adding new event!");
@@ -47,18 +53,6 @@ function changeEvents(state = [], action) {
     default:
       return state;
   }
-}
-
-function events(state = [], action) {
-  if(typeof action.event !== 'undefined') {
-    return {
-      // take the current state
-      ...state,
-      // create/overwrite with a new event
-      [action.event]: changeEvents(state[action.event], action)
-    }
-  }
-  return state;
 }
 
 export default events;
