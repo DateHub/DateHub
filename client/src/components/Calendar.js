@@ -4,7 +4,6 @@ import moment from 'moment';
 import Popup from './Popup' ;
 import { Link } from 'react-router';
 import Main from './Main';
-import Notification from './Notification';
 import * as Actions from '../actions/actionCreators';
 
 // Need to add an import for the location of the dates/events themselves
@@ -33,7 +32,6 @@ export default class Calendar extends Component {
     this.state = { 
       current: "",
       open: false,
-      notificationOpen: false,
       events: []
     };
   }
@@ -51,7 +49,6 @@ export default class Calendar extends Component {
     this.setState({
         current: this.state.current,
         open: this.state.open,
-        notificationOpen: this.state.notificationOpen,
         events: events || []
     });
   }
@@ -60,33 +57,18 @@ export default class Calendar extends Component {
     this.setState({
       current: selectedEvent,
       open: true,
-      notificationOpen: false
-    });
-  }
-
-  notificationOpen(selectedEvent) {
-    this.setState({
-      notificationOpen: true,
-      open: false
     });
   }
 
   render() {
     return (
       <div>
-        <Link to='/dates'>Date List!</Link>
-        <div style={{ height: 500 }}>
-          <BigCalendar
-            selectable
-            events={this.state.events || []}
-            onSelectEvent={event => this.open(event)}
-          />
-          <Popup value={this.state} />
-        </div>
-        <button onClick={this.notificationOpen.bind(this)}>
-          Open Notifications!
-        </button>
-        <Notification value={this.state}/>
+        <BigCalendar
+          selectable
+          events={this.state.events || []}
+          onSelectEvent={event => this.open(event)}
+        />
+        <Popup value={this.state} />
       </div>
     );
   }
