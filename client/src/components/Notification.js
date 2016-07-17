@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import NotificationUpcomingDate from './NotificationUpcomingDate'
 
 // Notification: this component will contain notifications that users needs to check; there are two types of notifications; informing upcoming date and reminding to leave a review on a person who a user met recently. This does not include specific information. It will only display if upcoming Date or review exist or not.
 
@@ -23,13 +24,12 @@ const customStyles = {
 };
 
 export default class Notification extends Component {
-    constructor(props){
+  constructor(props){
     super(props);
-
-    console.log(this.props.value);
 
     this.state = {
       notificationOpen: this.props.value.notificationOpen,
+      matches: this.props.value.newMatches || []
     };
 
     this.openNotification = this.openNotification.bind(this);
@@ -38,7 +38,8 @@ export default class Notification extends Component {
   
   componentWillReceiveProps(nextProps){
     this.setState({
-      notificationOpen: nextProps.value.notificationOpen
+      notificationOpen: nextProps.value.notificationOpen,
+      matches: nextProps.value.newMatches || []
     });
   }
 
@@ -60,8 +61,7 @@ export default class Notification extends Component {
           isOpen={this.state.notificationOpen}
           onRequestClose={this.closeNotification}
           style={customStyles}>
-          <h2 ref="subtitle">Basic Notifications Pane</h2>
-          YOU HAVE 1000 DATES UPCOMING
+          <NotificationUpcomingDate matches={this.state.matches} hasMatches={this.state.matches.length !== 0} />
         </Modal>
     );
   }

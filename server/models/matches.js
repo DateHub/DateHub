@@ -20,6 +20,11 @@ module.exports = (function() {
     userId2: {
       type: db.Sequelize.STRING,
       field: 'user_id_2'
+    },
+    status: {
+      type: db.Sequelize.STRING,
+      field: 'status',
+      defaultValue: 'DATE_NOT_SET' 
     }
   }, {
     timestamp: true
