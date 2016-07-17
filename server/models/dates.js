@@ -12,13 +12,21 @@ module.exports = (function(){
       type: db.Sequelize.TEXT,
       field: 'location'
     },
-    time: {
-      type: db.Sequelize.TIME,
-      field: 'time'
-    },
-    date: {
+    start_date: {
       type: db.Sequelize.DATE,
-      field: 'date'
+      field: 'start_date'
+    },
+    end_date: {
+      type: db.Sequelize.DATE,
+      field: 'end_date'
+    },
+    date_name: {
+      type: db.Sequelize.TEXT,
+      field: 'date_name'
+    },
+    title: {
+      type: db.Sequelize.TEXT,
+      field: 'title'
     }
   }, {
     timestamps : true
