@@ -19,7 +19,6 @@ module.exports = (function() {
     
     UsersDates.findAll({where: { user_id: userId }})  // returns array of object
     .then(function(data) {
-      // console.log(data);
       data.forEach(function(date) {
         dates.push(date.date_id);
       });
@@ -90,28 +89,10 @@ module.exports = (function() {
       dateList = dateList.filter(function(date) {
         var strungDate = date.date.toString();
 
-        console.log(monthStr[month])
-
         return strungDate.slice(4, 7) === monthStr[month] && strungDate.slice(11, 15) === year;
       });
       return dateList;
     })
-    // .then(function(dates) {
-    //   dates.forEach(function(dateId) {
-    //     Dates.findAll({where: { id: dateId }})
-    //     .then(function(data) {
-    //       console.log("DATAAAAAA ", data);
-    //       results.push(data);
-    //     });
-    //   });
-    // })
-    // .then(function() {
-    //   results = results.filter(function(date) {
-    //     var strungDate = date.date.toString();
-    //     return strungDate.slice(0, 7) === selectedDate;
-    //   });
-    // })
-    // .then filter out array of data object for month that we're looking for
     .then(function(result) {
       response.status(200).send(result);
     })
@@ -127,7 +108,10 @@ module.exports = (function() {
 
     var newDate = {
       location: request.body.location,
-      date: request.body.date
+      start_date: request.body.startDate,
+      end_date: request.body.endDate,
+      date_name: request.body.name,
+      title: "Date With " + request.body.name
     };
 
     var userId = request.session.user.id;
