@@ -53,7 +53,6 @@ module.exports = (function() {
 
     UsersDates.findAll({where: { user_id: userId }})  // returns array of object
     .then(function(data) {
-      // console.log(data);
       data.forEach(function(date) {
         dates.push(date.date_id);
       });
@@ -122,7 +121,6 @@ module.exports = (function() {
         user_id: userId,
         date_id: date.dataValues.id
       });
-      console.log("DAAAAAATE: ", date);
       return date;
     })
     .then(function(date) {
@@ -148,7 +146,7 @@ module.exports = (function() {
     .then(function() {
       response.status(200).send('update success');
     })
-    .catch(function() {
+    .catch(function(err) {
       response.status(500).send('update failed');
     });
   });
@@ -161,7 +159,7 @@ module.exports = (function() {
       row.destroy();
       response.status(200).send('delete success');
     })
-    .catch(function() {
+    .catch(function(err) {
       response.status(500).send('delete fail');
     });
   });
