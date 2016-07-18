@@ -57,7 +57,8 @@ td.day {
 }
 
 body {
-  background-image: url("/osaka.gif");
+  background: linear-gradient( #000, transparent 35%),
+              url("/osaka.gif");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center; 
@@ -69,6 +70,7 @@ body {
   padding: 0;
   padding-top: 30px;
 }
+
 
 html, body, div#container, div#container:first-child > div, div#container:first-child > div > div, .rbc-calendar {
   height: 97%;
