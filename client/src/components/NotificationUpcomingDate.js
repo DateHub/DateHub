@@ -45,7 +45,7 @@ export default class NotificationUpcomingDate extends Component {
     });
 
     return (
-      <div id={carouselId} className="carousel slide" data-ride="carousel">
+      <div id={carouselId} className="carousel slide" data-ride="carousel" data-interval="false">
         <ol className="carousel-indicators">
           {carouselIndicators}
         </ol>

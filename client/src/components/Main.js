@@ -59,6 +59,12 @@ export default class Main extends Component {
     });
   }
 
+  notificationClose() {
+    this.setState({
+      notificationOpen: false
+    });
+  }
+
   popupOpen(matchedPerson) {
     this.setState({
       popupOpen: true,
@@ -96,6 +102,7 @@ export default class Main extends Component {
         </nav>
         <Notification isOpen={this.state.notificationOpen} 
                       newMatches={this.state.newMatches}
+                      notificationClose={this.notificationClose.bind(this)}
                       popupOpen={this.popupOpen.bind(this)}/>
         <Popup isOpen={this.state.popupOpen}
                popupClose={this.popupClose.bind(this)}
