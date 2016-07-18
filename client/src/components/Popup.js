@@ -53,7 +53,7 @@ export default class Popup extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.save = this.save.bind(this);
   }
-  
+
   componentWillReceiveProps(nextProps){
     this.setState({
       event: nextProps.value.current,
@@ -116,10 +116,10 @@ export default class Popup extends Component {
               <div className="form-group form-padding">
                 <div className="row">
                   <div className="col-md-6">
-                    <DateTimeField mode="date" dateTime={this.state.event.start} ref="date"/>
+                    <DateTimeField mode="date" dateTime={Moment(this.state.event.start).toDate()} ref="date"/>
                   </div>
                   <div className="col-md-6">
-                    <DateTimeField mode="time" dateTime={this.state.event.start} ref="time" />
+                    <DateTimeField mode="time" dateTime={Moment(this.state.event.start).toDate()} ref="time" />
                   </div>
                 </div>
                 <input className="form-control" type="text" defaultValue={this.state.event.name} placeholder="Enter a name" ref="name"/>

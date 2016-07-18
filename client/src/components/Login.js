@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
+import * as Actions from '../actions/actionCreators';
 
 // This component will get the user id and user password with authentication feature.
 
@@ -13,21 +14,45 @@ export default class Login extends Component {
       facebookToken: ''
     };
 
-    this.login = function() {
-      return axios.post('/auth/tinder', {
-        facebook_token: this.state.facebookToken
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    }.bind(this);
+    this.login = this.login.bind(this);
 
-    this.handleChange = function(event) {
-      this.setState({facebookToken: event.target.value});
-    }.bind(this);
+    // this.login = function() {
+    //   return axios.post('/auth/tinder', {
+    //     facebook_token: this.state.facebookToken
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    // }.bind(this);
+
+    // this.handleChange = function(event) {
+    //   this.setState({facebookToken: event.target.value});
+    // }.bind(this);
+  }
+
+  login(event) {
+    event.preventDefault();
+
+    console.log(this.refs.tokenInput.value);
+
+    this.setState({
+      facebookToken: this.refs.tokenInput.value
+    });
+
+    return Actions.tinderLogin();
+
+    // return axios.post('/auth/tinder', {
+    //     facebook_token: this.state.facebookToken
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   }
 
   // TODO: Fill out the 'input' DOM elements for an user ID and a password. Add a login button. (Sign up button might need - discuss)
@@ -46,12 +71,12 @@ export default class Login extends Component {
             Generate access token
           </a>
         </div>
-        <input
-          type="text"
-          value={this.state.facebookToken}
-          onChange={this.handleChange}
-          placeholder="Enter access token" />
-        <button onClick={this.login}>Login</button>
+        <form type="submit">
+          <input
+            type="text"
+            placeholder="Enter access token" ref="tokenInput"/>
+          <button onSubmit={this.login.bind(this)}>Login</button>
+        </form>
       </div>
     );
   }

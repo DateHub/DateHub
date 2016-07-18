@@ -87,7 +87,8 @@ module.exports = (function() {
         '12': 'Dec'
       };
       dateList = dateList.filter(function(date) {
-        var strungDate = date.date.toString();
+        console.log("Date", date);
+        var strungDate = date.start.toString();
 
         return strungDate.slice(4, 7) === monthStr[month] && strungDate.slice(11, 15) === year;
       });
@@ -105,12 +106,11 @@ module.exports = (function() {
 
     // JSON object
     // console.log("REQUEST HERE!!!! ", request.body);
-
     var newDate = {
       location: request.body.location,
-      start_date: request.body.startDate,
-      end_date: request.body.endDate,
-      date_name: request.body.name,
+      start: request.body.start,
+      end: request.body.end,
+      name: request.body.name,
       title: "Date With " + request.body.name
     };
 

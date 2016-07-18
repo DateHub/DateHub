@@ -15,15 +15,24 @@ import Popup from './components/Popup';
 // Import react router dependencies
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import store, { history } from './store'
+import store, { history, defaultState } from './store';
+
+function requireAuth(nextState, replace) {
+  // Need to figure out to update auth status
+  
+  // if(!store.getState().auth) {
+  //   replace('/login');
+  // }
+}
 
 const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
-        <IndexRoute component={Calendar}></IndexRoute>
+        <IndexRoute component={Calendar} onEnter={requireAuth} />
+        <Route path='login' component={Login} />
+        <Route path='dates' component={DateList} />
       </Route>
-      <Route path='/dates' component={DateList}></Route>
     </Router>
   </Provider>
 )

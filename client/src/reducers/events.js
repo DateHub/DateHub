@@ -6,7 +6,7 @@
 function events(state = [], action) {
   switch(action.type) {
     case 'GET_EVENTS' :
-      console.log("Getting events!");
+      console.log("Getting events!", action.events);
       return [...state, {
         events: action.events
       }];
@@ -15,10 +15,11 @@ function events(state = [], action) {
       // TODO: get ID of event after it's added to DB
       console.log("Adding new event!");
       return [...state, {
+        title: "test title",
         name: action.event.name,
         location: action.event.location,
-        start: action.event.start,
-        end: action.event.end,
+        start: action.event.date,
+        // end: action.event.end,
         notes: action.event.notes
       }];
 
@@ -31,10 +32,11 @@ function events(state = [], action) {
         ...state.slice(0, i),
         // the item
         {...state[i], event: {
+          title: "test title",
           name: action.event.name,
           location: action.event.location,
-          start: action.event.start,
-          end: action.event.end,
+          start: action.event.date,
+          // end: action.event.end,
           notes: action.event.notes
         }},
         // index after item

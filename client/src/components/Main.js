@@ -6,17 +6,13 @@ import Notification from './Notification';
 export default class Main extends Component {
   constructor(props){
     super(props);
+    console.log("PROPS", this.props);
 
     this.state = { 
       notificationOpen: false,
-      newMatches: []
+      newMatches: [],
+      auth: this.props.auth
     };
-  }
-
-  notificationOpen(selectedEvent) {
-    this.setState({
-      notificationOpen: true,
-    });
   }
 
   componentDidMount() {
@@ -45,6 +41,12 @@ export default class Main extends Component {
         console.log(error);
       });
     })(this);
+  }
+
+  notificationOpen(selectedEvent) {
+    this.setState({
+      notificationOpen: true,
+    });
   }
 
   render() {
