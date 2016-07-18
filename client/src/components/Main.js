@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Notification from './Notification';
+import Loading from './Loading';
 
 export default class Main extends Component {
   constructor(props){
@@ -11,7 +12,8 @@ export default class Main extends Component {
     this.state = { 
       notificationOpen: false,
       newMatches: [],
-      auth: this.props.auth
+      auth: this.props.auth,
+      isLoading: false
     };
   }
 
@@ -28,9 +30,13 @@ export default class Main extends Component {
 
     (function getNewMatches(context) {
       let halfHour = 30 * 60 * 1000;
+      context.setState({
+        isLoading: true
+      })
       axios.get('/api/matches/new')
       .then(results => {
         context.setState({
+          isLoading: false,
           newMatches: context.state.newMatches.concat(results.data)
         });
         setTimeout(function() {
@@ -65,8 +71,10 @@ export default class Main extends Component {
                   type="button"
                   data-toggle="popover" 
                   onClick={this.notificationOpen.bind(this)}>
-            <span className="glyphicon glyphicon-heart margin-sides-small" aria-hidden="true"></span>  
-            <span className="badge">{this.state.newMatches.length}</span>
+
+                  <Loading isLoading={this.state.isLoading}
+                           newMatches={this.state.newMatches} />
+
           </button>
         </nav>
         <Notification value={this.state}/>
