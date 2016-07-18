@@ -3,6 +3,7 @@ var session = require('express-session');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var db = require('../db.js');
 var uuid = require('uuid');
+var Session = require('../models/sessions.js');
 
 module.exports = (function(){
   return {
@@ -25,18 +26,20 @@ module.exports = (function(){
         secret: sessionSecret,
         resave: false,
         saveUninitialized: false,
-        cookie: { 
+        cookie: {
           maxAge: expirationTime,
           expires: new Date(Date.now() + expirationTime)  // 1 hour
         },
         store: new SequelizeStore({
           db: db,
           table: 'sessions',
+          checkExpirationInterval: 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
+          expiration: expirationTime,        // The maximum age (in milliseconds) of a valid session.
           extendDefaultFields: function(defaults, session) {
             return {
               data: defaults.data,
               expires: defaults.expires,
-              userId: session.user && session.user.id
+              userId: session.user.id
             };
           }
         })
