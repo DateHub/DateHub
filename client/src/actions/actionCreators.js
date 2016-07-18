@@ -10,54 +10,62 @@ export function getEvents() {
     month = "0" + month
   }
 
-  return axios.get('/api/dates/month/' + month + '/year/' +year)
-  .then((response) => {
-    console.log("Getting events from DB!")
-    return {
-      type: 'GET_EVENTS',
-      events: response.data
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  const loadEvents = axios.get('/api/dates/month/' + month + '/year/' + year)
+
+  return (dispatch) => {
+    return loadEvents.then(({data}) => {
+      dispatch({
+        type: 'GET_EVENTS',
+        events: data
+      })
+    });
+  };
 }
 
 // add event
 export function addEvent(eventObject) {
-  return axios.post('/api/dates', eventObject)
-    .then((response) => {
-      return {
+
+  const newEvent = axios.post('/api/dates', eventObject);
+
+  return (dispatch) => {
+    return newEvent.then(({data}) => {
+      dispatch({
         type: 'NEW_EVENT',
         event: eventObject
-      }
-    })
-    .catch((error) => {
-      console.log(error);
+      })
     });
+  };
 }
 
 // edit event
-export function editEvent(eventObject, eventId) {
-  return {
-    type: 'EDIT_EVENT',
-    event: eventObject,
-    eventId: eventId
-  }
+export function editEvent(updatedEvent, eventId) {
+
+  const changeEvent = axios.put('/api/dates/' + eventId, updatedEvent);
+
+  return (dispatch) => { 
+    return changeEvent.then(({data}) => {
+      dispatch({
+        type: 'EDIT_EVENT',
+        event: updatedEvent,
+        eventId: eventId
+      })
+    });
+  };
 }
 
 // delete event
 export function deleteEvent(eventId) {
-  return axios.delete('/api/dates/' + eventId)
-  .then((response) => {
-    return {
-      type: 'DELETE_EVENT',
-      eventId: eventId
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+
+  const deleteEvt = axios.delete('/api/dates/' + eventId);
+  
+  return (dispatch) => {
+    return deleteEvt.then(({data}) => {
+      dispatch({
+        type: 'DELETE_EVENT',
+        eventId: eventId
+      })
+    });
+  };
 }
 
 // facebook/tinder login

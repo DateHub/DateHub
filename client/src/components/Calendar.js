@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import Main from './Main';
 import * as Actions from '../actions/actionCreators';
 import DateTimeField from 'react-bootstrap-datetimepicker';
+import { connect } from 'react-redux';
 
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(Moment)
@@ -21,7 +22,8 @@ export default class Calendar extends Component {
     this.state = { 
       current: "",
       open: false,
-      events: []
+      events: [],
+      props: this.props
     };
   }
 
@@ -29,24 +31,29 @@ export default class Calendar extends Component {
     return this.getAllEvents();
   }
 
-  componentWillReceiveProps() {
-    return this.getAllEvents();
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.value !== this.props.value) {
+      return this.getAllEvents();
+    }
   }
 
+
   getAllEvents() {
-    return Actions.getEvents()
-    .then((response) => {
-      return this.setEvents(response.events);
+    return this.props.getEvents()
+    .then(() => {
+      return this.setState({ 
+        events: this.props.events.events,
+        current: this.state.current,
+        open: false
+      })
     });
   }
 
   setEvents(events) {
-    // Events won't render to calendar without start, and end time--properties on object have to be explicitly start and end
-
     this.setState({
         current: this.state.current,
         open: this.state.open,
-        events: events
+        events: this.props.events
     });
   }
 
@@ -66,9 +73,7 @@ export default class Calendar extends Component {
       end: end
     };
 
-    // console.log(newEvent);
-
-    return Actions.addEvent(newEvent)
+    return this.props.addEvent(newEvent)
     .then(() => {
       return this.getAllEvents();
     });
@@ -90,7 +95,7 @@ export default class Calendar extends Component {
           onSelectEvent={event => this.open(event)}
           views={["month"]}
         />
-        <Popup value={this.state} />
+        <Popup value={this.state} getAllEvents={this.getAllEvents.bind(this)} />
         <form onSubmit={this.createEvent.bind(this)}>
           <input type="text" ref="name"/>
           <input type="text" ref="location"/>

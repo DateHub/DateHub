@@ -1,5 +1,6 @@
 import React from 'react';
 import Main from './Main';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Media, MediaBody, MediaHeading, MediaLeft, MediaList, MediaListItem, MediaRight } from 'react-bootstrap'; 
 

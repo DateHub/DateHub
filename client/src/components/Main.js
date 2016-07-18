@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Notification from './Notification';
 
 export default class Main extends Component {
   constructor(props){
     super(props);
-    console.log("PROPS", this.props);
 
     this.state = { 
       notificationOpen: false,

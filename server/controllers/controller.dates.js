@@ -87,7 +87,6 @@ module.exports = (function() {
         '12': 'Dec'
       };
       dateList = dateList.filter(function(date) {
-        console.log("Date", date);
         var strungDate = date.start.toString();
 
         return strungDate.slice(4, 7) === monthStr[month] && strungDate.slice(11, 15) === year;
@@ -111,7 +110,7 @@ module.exports = (function() {
       start: request.body.start,
       end: request.body.end,
       name: request.body.name,
-      title: "Date With " + request.body.name
+      title: "Date with " + request.body.name
     };
 
     var userId = request.session.user.id;
@@ -136,8 +135,11 @@ module.exports = (function() {
   router.put('/:dateid', function(request, response) {
     var dateId = request.params.dateid;
     var updatedDate = {
+      title: "Date with " + request.body.name,
+      name: request.body.name,
       location: request.body.location,
-      date: request.body.date
+      start: request.body.start,
+      end: request.body.end
     };
 
     Dates.update(updatedDate, {where: { id: dateId }})

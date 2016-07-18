@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import * as Actions from '../actions/actionCreators';
 
 // This component will get the user id and user password with authentication feature.
