@@ -116,3 +116,9 @@ html, body, div#container, div#container:first-child > div, div#container:first-
   max-height: 500px;
   min-height: 500px;
 }
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
