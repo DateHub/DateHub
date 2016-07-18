@@ -98,6 +98,7 @@ export default class Main extends Component {
                      newMatches={this.state.newMatches} />
           </button>
         </nav>
+<<<<<<< 6a5de64d39250d6353b99106f1686576641fe57d
         <Notification isOpen={this.state.notificationOpen} 
                       newMatches={this.state.newMatches}
                       notificationClose={this.notificationClose.bind(this)}
@@ -107,6 +108,9 @@ export default class Main extends Component {
                event={this.state.event} 
                action={this.props.addEvent}
                getAllEvents={this.props.getEvents} />
+=======
+        <Notification value={this.state} newMatches={this.props.newMatches.bind(this)}/>
+>>>>>>> [feature] extrapolate tinder functions to actions and reducers and update rendering of datelist
         {React.cloneElement(this.props.children, this.props)}
       </div>
     )

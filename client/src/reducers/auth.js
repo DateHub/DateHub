@@ -12,6 +12,12 @@ function auth(state = {}, action) {
         auth: action.auth
       };
 
+    case 'GET_MATCHES' :
+      console.log("Getting Tinder matches", action);
+      return {
+        matches: action
+      };
+
     default:
       return state;
   }

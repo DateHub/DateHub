@@ -27,6 +27,8 @@ export default class Notification extends Component {
   constructor(props){
     super(props);
 
+    console.log("notification props", this.props);
+
     this.state = {
       isOpen: this.props.isOpen,
       matches: this.props.newMatches || [],
@@ -35,10 +37,39 @@ export default class Notification extends Component {
     };
   }
   
+  componentDidMount() {
+    return this.getMatches();
+  }
+
   componentWillReceiveProps(nextProps){
+<<<<<<< 6a5de64d39250d6353b99106f1686576641fe57d
     this.setState({
       isOpen: nextProps.isOpen,
       matches: nextProps.newMatches || []
+=======
+
+    // this.setState({
+    //   notificationOpen: nextProps.value.notificationOpen,
+    //   matches: nextProps.value.newMatches || []
+    // });
+  }
+
+  getMatches() {
+    return this.props.newMatches().then((result) => {
+      console.log(result);
+    })
+  }
+
+  openNotification() {
+    this.setState({
+      notificationOpen: true
+    });
+  }
+
+  closeNotification() {
+    this.setState({
+      notificationOpen: false
+>>>>>>> [feature] extrapolate tinder functions to actions and reducers and update rendering of datelist
     });
   }
 

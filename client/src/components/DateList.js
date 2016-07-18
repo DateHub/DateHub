@@ -8,7 +8,7 @@ import { Media, MediaBody, MediaHeading, MediaLeft, MediaList, MediaListItem, Me
 
 const DateList = React.createClass({
   renderEvent(event, i){
-    console.log(this.props);
+    console.log("Date props", this.props);
     return (
       <div className="event" key={i}>
         <Media>

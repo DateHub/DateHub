@@ -24,7 +24,6 @@ export function getEvents() {
 
 // add event
 export function addEvent(eventObject) {
-
   const newEvent = axios.post('/api/dates', eventObject);
 
   return (dispatch) => {
@@ -39,7 +38,6 @@ export function addEvent(eventObject) {
 
 // edit event
 export function editEvent(updatedEvent, eventId) {
-
   const changeEvent = axios.put('/api/dates/' + eventId, updatedEvent);
 
   return (dispatch) => { 
@@ -55,7 +53,6 @@ export function editEvent(updatedEvent, eventId) {
 
 // delete event
 export function deleteEvent(eventId) {
-
   const deleteEvt = axios.delete('/api/dates/' + eventId);
   
   return (dispatch) => {
@@ -89,3 +86,19 @@ export function tinderLogin(token) {
     });
   };
 }
+
+// get new tinder matches
+export function newMatches() {
+  const getMatches = axios.get('/api/matches/dateless');
+
+  return (dispatch) => {
+    return getMatches.then(({data}) => {
+      console.log(data);
+      dispatch({
+        type: 'GET_MATCHES',
+        data: data
+      })
+    });
+  };
+}
+
