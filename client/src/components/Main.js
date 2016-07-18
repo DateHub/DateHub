@@ -106,6 +106,7 @@ export default class Main extends Component {
                popupClose={this.popupClose.bind(this)}
                event={this.state.event} 
                action={this.props.addEvent}
+               disableDelete={true}
                getAllEvents={this.props.getEvents} />
         {React.cloneElement(this.props.children, this.props)}
       </div>

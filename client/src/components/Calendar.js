@@ -96,6 +96,7 @@ export default class Calendar extends Component {
         <Popup isOpen={this.state.open}
                popupClose={this.popupClose.bind(this)}
                event={this.state.current} 
+               disableDelete={false}
                action={this.props.editEvent} />
       </div>
     );

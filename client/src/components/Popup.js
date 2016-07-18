@@ -37,7 +37,8 @@ export default class Popup extends Component {
     this.state = { 
       isOpen: this.props.isOpen,
       event: this.props.event,
-      closePopup: this.props.popupClose
+      closePopup: this.props.popupClose,
+      disableDelete: this.props.disableDelete
     };
 
     this.save = this.save.bind(this);
@@ -83,8 +84,10 @@ export default class Popup extends Component {
         style={customStyles}>
         <form className="eventEditor" onSubmit={this.save.bind(this)}>
           <div className="panel panel-primary no-margin">
-            <div className="panel-heading subtitle">
+            <div className="panel-heading">
               <h1 className="center-text">Date Info</h1>
+              <button className="btn btn-danger close-button" type="button"
+                      onClick={this.state.closePopup}>X</button>
             </div>
             <div className="panel-body">
               <div className="form-group form-padding">
@@ -104,7 +107,7 @@ export default class Popup extends Component {
             <div className="panel-footer primary center-text">
               <div className="row">
                 <div className="col-md-6">
-                  <button className="btn btn-danger full-width" type="button" onClick={this.state.closePopup}>Close</button>
+                  <button disabled={this.state.disableDelete} className="btn btn-danger full-width" type="button" >Delete</button>
                 </div>
                 <div className="col-md-6">
                   <button className="saveEvent btn btn-success full-width" type="submit">Save</button>
