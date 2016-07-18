@@ -88,16 +88,14 @@ export default class Main extends Component {
             </div>
           </div>
           <Link to="/dates" className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
-            Dates <span className="badge">5</span>
+            Dates <span className="badge">{this.props.events.events && this.props.events.events.length || 0}</span>
           </Link>
           <button className="btn btn-primary navbar-btn pull-right margin-sides-small" 
                   type="button"
                   data-toggle="popover" 
                   onClick={this.notificationOpen.bind(this)}>
-
-                  <Loading isLoading={this.state.isLoading}
-                           newMatches={this.state.newMatches} />
-
+            <Loading isLoading={this.state.isLoading}
+                     newMatches={this.state.newMatches} />
           </button>
         </nav>
         <Notification isOpen={this.state.notificationOpen} 
