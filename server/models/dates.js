@@ -24,6 +24,14 @@ module.exports = (function(){
       type: db.Sequelize.TEXT,
       field: 'name'
     },
+    notes: {
+      type: db.Sequelize.TEXT,
+      field: 'notes'
+    },
+    // image: {
+    //   type: db.Sequelize.TEXT,
+    //   field: 'image'
+    // },
     title: {
       type: db.Sequelize.TEXT,
       field: 'title'

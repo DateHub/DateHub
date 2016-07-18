@@ -6,25 +6,21 @@
 function events(state = [], action) {
   switch(action.type) {
     case 'GET_EVENTS' :
-      console.log("Getting events!");
       return {
         events: action.events
       };
 
     case 'ADD_EVENT' :
-      // TODO: get ID of event after it's added to DB
-      console.log("Adding new event!");
       return [...state, {
         title: "test title",
         name: action.event.name,
         location: action.event.location,
         start: action.event.date,
-        // end: action.event.end,
+        end: action.event.end,
         notes: action.event.notes
       }];
 
     case 'EDIT_EVENT' :
-      console.log("Editing and saving event!", state, action);
       let index = null
 
       for(let i = 0; i < state.events.length; i++) {
@@ -33,8 +29,6 @@ function events(state = [], action) {
           break;
         }
       }
-
-      console.log(index);
 
       // index of event as it's stored in the DB
       return [
@@ -53,7 +47,6 @@ function events(state = [], action) {
       ];
 
     case 'DELETE_EVENT' :
-      console.log("Deleting event!");
       index = null;
       for(let i = 0; i < state.events.length; i++) {
         if(state.events[i].id === action.eventId) {

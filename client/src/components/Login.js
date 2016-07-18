@@ -10,7 +10,6 @@ export default class Login extends Component {
   constructor(props){
     super(props);
 
-    console.log("props in login", this.props);
     // TODO: Grab user ID and user password
     this.state = {
       facebookToken: ''

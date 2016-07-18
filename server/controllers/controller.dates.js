@@ -110,6 +110,7 @@ module.exports = (function() {
       start: request.body.start,
       end: request.body.end,
       name: request.body.name,
+      notes: request.body.notes,
       title: "Date with " + request.body.name
     };
 
@@ -139,7 +140,8 @@ module.exports = (function() {
       name: request.body.name,
       location: request.body.location,
       start: request.body.start,
-      end: request.body.end
+      end: request.body.end,
+      notes: request.body.notes
     };
 
     Dates.update(updatedDate, {where: { id: dateId }})
