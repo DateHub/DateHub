@@ -33,7 +33,7 @@ const DateList = React.createClass({
               <img alt="DateHub" src=""/>
             </div>
           </div>
-          <Link to="/" className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
+          <Link to="/" onClick={this.forceUpdate} className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
             Calendar
           </Link>
         </nav>
