@@ -1,80 +1,44 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import Notification from './Notification';
-import Loading from './Loading';
-import Popup from './Popup';
+import Modal from 'react-modal';
+import NotificationUpcomingDate from './NotificationUpcomingDate'
 
-export default class Main extends Component {
+// Notification: this component will contain notifications that users needs to check; there are two types of notifications; informing upcoming date and reminding to leave a review on a person who a user met recently. This does not include specific information. It will only display if upcoming Date or review exist or not.
+
+// Display: "You have upcoming date tomorrow", "You have ## dates that you have not left reviews"
+
+// Functionality: Displaying notifications with buttons; one for upcoming date and another one for review to leave
+
+const customStyles = {
+  overlay : {
+    backgroundColor   : 'rgba(255, 255, 255, .1)',
+    zIndex:  900
+  },
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+export default class Notification extends Component {
   constructor(props){
     super(props);
 
-    this.state = { 
-      notificationOpen: false,
-      popupOpen: false,
-      event: '',
-      newMatches: [],
-      auth: this.props.auth,
-      isLoading: false
+    this.state = {
+      isOpen: this.props.isOpen,
+      matches: this.props.newMatches || [],
+      popupOpen: this.props.popupOpen,
+      notificationClose: this.props.notificationClose
     };
   }
-
-  componentDidMount() {
-    axios.get('/api/matches/dateless')
-      .then(results => {
-        this.setState({
-          newMatches: results.data || []
-        })
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    (function getNewMatches(context) {
-      let halfHour = 30 * 60 * 1000;
-      context.setState({
-        isLoading: true
-      })
-      axios.get('/api/matches/new')
-      .then(results => {
-        context.setState({
-          isLoading: false,
-          newMatches: context.state.newMatches.concat(results.data)
-        });
-        setTimeout(function() {
-          return getNewMatches(context);
-        }, halfHour);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    })(this);
-  }
-
-  notificationOpen(selectedEvent) {
+  
+  componentWillReceiveProps(nextProps){
     this.setState({
-      notificationOpen: true,
-      popupOpen: false
-    });
-  }
-
-  notificationClose() {
-    this.setState({
-      notificationOpen: false
-    });
-  }
-
-  popupOpen(matchedPerson) {
-    this.setState({
-      popupOpen: true,
-      event: matchedPerson
-    });
-  }
-
-  popupClose() {
-    this.setState({
-      popupOpen: false
+      isOpen: nextProps.isOpen,
+      matches: nextProps.newMatches || []
     });
   }
 
@@ -98,7 +62,6 @@ export default class Main extends Component {
                      newMatches={this.state.newMatches} />
           </button>
         </nav>
-<<<<<<< 6a5de64d39250d6353b99106f1686576641fe57d
         <Notification isOpen={this.state.notificationOpen} 
                       newMatches={this.state.newMatches}
                       notificationClose={this.notificationClose.bind(this)}
@@ -108,11 +71,18 @@ export default class Main extends Component {
                event={this.state.event} 
                action={this.props.addEvent}
                getAllEvents={this.props.getEvents} />
-=======
         <Notification value={this.state} newMatches={this.props.newMatches.bind(this)}/>
->>>>>>> [feature] extrapolate tinder functions to actions and reducers and update rendering of datelist
         {React.cloneElement(this.props.children, this.props)}
       </div>
-    )
+        <Modal
+          isOpen={this.state.isOpen}
+          onRequestClose={this.state.notificationClose}
+          style={customStyles}>
+          <NotificationUpcomingDate 
+            matches={this.state.matches} 
+            hasMatches={this.state.matches.length !== 0}
+            popupOpen={this.state.popupOpen} />
+        </Modal>
+    );
   }
-}
+};

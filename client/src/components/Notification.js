@@ -42,11 +42,10 @@ export default class Notification extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-<<<<<<< 6a5de64d39250d6353b99106f1686576641fe57d
     this.setState({
       isOpen: nextProps.isOpen,
       matches: nextProps.newMatches || []
-=======
+    });
 
     // this.setState({
     //   notificationOpen: nextProps.value.notificationOpen,
@@ -69,7 +68,6 @@ export default class Notification extends Component {
   closeNotification() {
     this.setState({
       notificationOpen: false
->>>>>>> [feature] extrapolate tinder functions to actions and reducers and update rendering of datelist
     });
   }
 
