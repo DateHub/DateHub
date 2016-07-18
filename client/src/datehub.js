@@ -31,10 +31,11 @@ const router = (
       <Route path='/' component={App}>
         <IndexRoute component={Calendar} onEnter={requireAuth} />
         <Route path='login' component={Login} />
-        <Route path='dates' component={DateList} />
       </Route>
     </Router>
   </Provider>
 )
 
 ReactDOM.render(router, document.getElementById('container'));
+
+// <Route path='dates' component={DateList} />
