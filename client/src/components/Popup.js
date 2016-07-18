@@ -104,7 +104,7 @@ export default class Popup extends Component {
             <div className="panel-footer primary center-text">
               <div className="row">
                 <div className="col-md-6">
-                  <button className="btn btn-danger full-width" onClick={this.closeModal}>Close</button>
+                  <button className="btn btn-danger full-width" type="button" onClick={this.state.closePopup}>Close</button>
                 </div>
                 <div className="col-md-6">
                   <button className="saveEvent btn btn-success full-width" type="submit">Save</button>
