@@ -5,6 +5,7 @@ import Moment from 'moment';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actionCreators';
+import Main from './Main';
 
 // import ReactDOM from 'react-dom';
 
@@ -32,6 +33,8 @@ const customStyles = {
 export default class Popup extends Component {
   constructor(props){
     super(props);
+
+    console.log(this.props.value.props)
 
     this.state = { 
       modalIsOpen: this.props.value.open,
@@ -86,12 +89,14 @@ export default class Popup extends Component {
     let modal = this;
     let eventId = this.state.event.id;
 
-    this.closeModal();
+    // this.closeModal();
 
     // Need to figure out how to re-render
 
-    return Actions.editEvent(updatedEvent, eventId);
-
+    return this.props.value.props.editEvent(updatedEvent, eventId)
+    .then(() => {
+      return this.props.getAllEvents();
+    });
   }
 
   render() {

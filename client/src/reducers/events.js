@@ -6,11 +6,10 @@
 function events(state = [], action) {
   switch(action.type) {
     case 'GET_EVENTS' :
-      console.log("state", state);
       console.log("Getting events!");
-      return [...state, {
+      return {
         events: action.events
-      }];
+      };
 
     case 'ADD_EVENT' :
       // TODO: get ID of event after it's added to DB
@@ -25,22 +24,32 @@ function events(state = [], action) {
       }];
 
     case 'EDIT_EVENT' :
-      console.log("Editing and saving event!");
+      console.log("Editing and saving event!", state, action);
+      let index = null
+
+      for(let i = 0; i < state.events.length; i++) {
+        if(state.events[i].id === action.eventId) {
+          index = i;
+          break;
+        }
+      }
+
+      console.log(index);
+
       // index of event as it's stored in the DB
-      const i = action.index;
       return [
         // from start of index to the event that we're deleting
-        ...state.slice(0, i),
+        ...state.events.slice(0, index),
         // the item
-        {...state[i], event: {
+        {...state[index], event: {
           name: action.event.name,
           location: action.event.location,
           start: action.event.start,
-          // end: action.event.end,
+          end: action.event.end,
           notes: action.event.notes
         }},
         // index after item
-        ...state.slice(i + 1)
+        ...state.events.slice(index + 1)
       ];
 
     case 'DELETE_EVENT' :
