@@ -35,10 +35,37 @@ export default class Notification extends Component {
     };
   }
   
+  componentDidMount() {
+    // return this.getMatches();
+  }
+
   componentWillReceiveProps(nextProps){
     this.setState({
       isOpen: nextProps.isOpen,
       matches: nextProps.newMatches || []
+    });
+
+    // this.setState({
+    //   notificationOpen: nextProps.value.notificationOpen,
+    //   matches: nextProps.value.newMatches || []
+    // });
+  }
+
+  // getMatches() {
+  //   return this.props.newMatches().then((result) => {
+  //     console.log(result);
+  //   })
+  // }
+
+  openNotification() {
+    this.setState({
+      notificationOpen: true
+    });
+  }
+
+  closeNotification() {
+    this.setState({
+      notificationOpen: false
     });
   }
 

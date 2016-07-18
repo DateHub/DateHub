@@ -10,6 +10,7 @@ export default class Login extends Component {
   constructor(props){
     super(props);
 
+    console.log("props in login", this.props);
     // TODO: Grab user ID and user password
     this.state = {
       facebookToken: ''
@@ -37,13 +38,11 @@ export default class Login extends Component {
   login(event) {
     event.preventDefault();
 
-    console.log(this.refs.tokenInput.value);
+    // this.setState({
+    //   facebookToken: this.refs.tokenInput.value
+    // });
 
-    this.setState({
-      facebookToken: this.refs.tokenInput.value
-    });
-
-    return Actions.tinderLogin();
+    return this.props.tinderLogin(this.refs.tokenInput.value);
 
     // return axios.post('/auth/tinder', {
     //     facebook_token: this.state.facebookToken
