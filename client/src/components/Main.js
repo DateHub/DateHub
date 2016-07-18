@@ -1,44 +1,80 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
-import NotificationUpcomingDate from './NotificationUpcomingDate'
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import Notification from './Notification';
+import Loading from './Loading';
+import Popup from './Popup';
 
-// Notification: this component will contain notifications that users needs to check; there are two types of notifications; informing upcoming date and reminding to leave a review on a person who a user met recently. This does not include specific information. It will only display if upcoming Date or review exist or not.
-
-// Display: "You have upcoming date tomorrow", "You have ## dates that you have not left reviews"
-
-// Functionality: Displaying notifications with buttons; one for upcoming date and another one for review to leave
-
-const customStyles = {
-  overlay : {
-    backgroundColor   : 'rgba(255, 255, 255, .1)',
-    zIndex:  900
-  },
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
-
-export default class Notification extends Component {
+export default class Main extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      isOpen: this.props.isOpen,
-      matches: this.props.newMatches || [],
-      popupOpen: this.props.popupOpen,
-      notificationClose: this.props.notificationClose
+    this.state = { 
+      notificationOpen: false,
+      popupOpen: false,
+      event: '',
+      newMatches: [],
+      auth: this.props.auth,
+      isLoading: false
     };
   }
-  
-  componentWillReceiveProps(nextProps){
+
+  componentDidMount() {
+    axios.get('/api/matches/dateless')
+      .then(results => {
+        this.setState({
+          newMatches: results.data || []
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    (function getNewMatches(context) {
+      let halfHour = 30 * 60 * 1000;
+      context.setState({
+        isLoading: true
+      })
+      axios.get('/api/matches/new')
+      .then(results => {
+        context.setState({
+          isLoading: false,
+          newMatches: context.state.newMatches.concat(results.data)
+        });
+        setTimeout(function() {
+          return getNewMatches(context);
+        }, halfHour);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    })(this);
+  }
+
+  notificationOpen(selectedEvent) {
     this.setState({
-      isOpen: nextProps.isOpen,
-      matches: nextProps.newMatches || []
+      notificationOpen: true,
+      popupOpen: false
+    });
+  }
+
+  notificationClose() {
+    this.setState({
+      notificationOpen: false
+    });
+  }
+
+  popupOpen(matchedPerson) {
+    this.setState({
+      popupOpen: true,
+      event: matchedPerson
+    });
+  }
+
+  popupClose() {
+    this.setState({
+      popupOpen: false
     });
   }
 
@@ -52,7 +88,8 @@ export default class Notification extends Component {
             </div>
           </div>
           <Link to="/dates" className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
-            Dates <span className="badge">{this.props.events.events && this.props.events.events.length || 0}</span>
+          <span className="badge">{this.props.events.events && this.props.events.events.length || 0}</span>
+            Dates <span className="badge">5</span>
           </Link>
           <button className="btn btn-primary navbar-btn pull-right margin-sides-small" 
                   type="button"
@@ -60,6 +97,8 @@ export default class Notification extends Component {
                   onClick={this.notificationOpen.bind(this)}>
             <Loading isLoading={this.state.isLoading}
                      newMatches={this.state.newMatches} />
+                  <Loading isLoading={this.state.isLoading}
+                           newMatches={this.state.newMatches} />
           </button>
         </nav>
         <Notification isOpen={this.state.notificationOpen} 
@@ -84,5 +123,8 @@ export default class Notification extends Component {
             popupOpen={this.state.popupOpen} />
         </Modal>
     );
+        {React.cloneElement(this.props.children, this.props)}
+      </div>
+    )
   }
-};
+}

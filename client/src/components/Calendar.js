@@ -101,5 +101,3 @@ export default class Calendar extends Component {
     );
   }
 }
-
-

@@ -27,8 +27,6 @@ export default class Notification extends Component {
   constructor(props){
     super(props);
 
-    console.log("notification props", this.props);
-
     this.state = {
       isOpen: this.props.isOpen,
       matches: this.props.newMatches || [],
@@ -38,7 +36,7 @@ export default class Notification extends Component {
   }
   
   componentDidMount() {
-    return this.getMatches();
+    // return this.getMatches();
   }
 
   componentWillReceiveProps(nextProps){
@@ -53,11 +51,11 @@ export default class Notification extends Component {
     // });
   }
 
-  getMatches() {
-    return this.props.newMatches().then((result) => {
-      console.log(result);
-    })
-  }
+  // getMatches() {
+  //   return this.props.newMatches().then((result) => {
+  //     console.log(result);
+  //   })
+  // }
 
   openNotification() {
     this.setState({
