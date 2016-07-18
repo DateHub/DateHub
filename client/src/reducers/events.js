@@ -53,12 +53,20 @@ function events(state = [], action) {
       ];
 
     case 'DELETE_EVENT' :
-      console.log("Editing and saving event!");
+      console.log("Deleting event!");
+      let index = null;
+      for(let i = 0; i < state.events.length; i++) {
+        if(state.events[i].id === action.eventId) {
+          index = i;
+          break;
+        }
+      }
+
       return [
         // from start of index to the event that we're deleting
-        ...state.slice(0, i),
+        ...state.slice(0, index),
         // the next event after the one that we've deleted
-        ...state.slice(i + 1)
+        ...state.slice(index + 1)
       ];
 
     default:
