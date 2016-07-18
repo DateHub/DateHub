@@ -8,7 +8,6 @@ import Calendar from './components/Calendar';
 import DateList from './components/DateList';
 import Login from './components/Login';
 import Notification from './components/Notification';
-import NotificationReview from './components/NotificationReview';
 import NotifcationUpcomingDate from './components/NotificationUpcomingDate';
 import Popup from './components/Popup';
 

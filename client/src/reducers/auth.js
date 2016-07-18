@@ -6,14 +6,12 @@
 function auth(state = {}, action) {
   switch(action.type) {
     case 'LOGIN' :
-      console.log("LOGGING IN", action);
       return {
         facebook_token: action.facebook_token,
         auth: action.auth
       };
 
     case 'GET_MATCHES' :
-      console.log("Getting Tinder matches", action);
       return {
         matches: action
       };
