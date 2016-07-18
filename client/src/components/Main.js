@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Notification from './Notification';
 import Loading from './Loading';
+import Popup from './Popup';
 
 export default class Main extends Component {
   constructor(props){
@@ -11,6 +12,8 @@ export default class Main extends Component {
 
     this.state = { 
       notificationOpen: false,
+      popupOpen: false,
+      event: '',
       newMatches: [],
       auth: this.props.auth,
       isLoading: false
@@ -52,6 +55,26 @@ export default class Main extends Component {
   notificationOpen(selectedEvent) {
     this.setState({
       notificationOpen: true,
+      popupOpen: false
+    });
+  }
+
+  notificationClose() {
+    this.setState({
+      notificationOpen: false
+    });
+  }
+
+  popupOpen(matchedPerson) {
+    this.setState({
+      popupOpen: true,
+      event: matchedPerson
+    });
+  }
+
+  popupClose() {
+    this.setState({
+      popupOpen: false
     });
   }
 
@@ -77,7 +100,15 @@ export default class Main extends Component {
 
           </button>
         </nav>
-        <Notification value={this.state}/>
+        <Notification isOpen={this.state.notificationOpen} 
+                      newMatches={this.state.newMatches}
+                      notificationClose={this.notificationClose.bind(this)}
+                      popupOpen={this.popupOpen.bind(this)}/>
+        <Popup isOpen={this.state.popupOpen}
+               popupClose={this.popupClose.bind(this)}
+               event={this.state.event} 
+               action={this.props.addEvent}
+               getAllEvents={this.props.getEvents} />
         {React.cloneElement(this.props.children, this.props)}
       </div>
     )
