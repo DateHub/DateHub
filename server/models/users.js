@@ -19,7 +19,7 @@ module.exports = (function() {
       allowNull: false
     },
     description: {
-      type: db.Sequelize.STRING,
+      type: db.Sequelize.STRING(5000),
       field: 'description'
     },
     lastUpdated: {
