@@ -6,3 +6,6 @@ server/env/config.js
 
 # react main js
 client/bundle.js
+
+# npm debug
+npm.debug.log
