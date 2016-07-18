@@ -7,10 +7,10 @@ function auth(state = [], action) {
   switch(action.type) {
     case 'LOGIN' :
       console.log("LOGGING IN", action);
-      return [...state, {
+      return {
         facebook_token: action.facebook_token,
         auth: action.auth
-      }];
+      };
 
     default:
       return state;

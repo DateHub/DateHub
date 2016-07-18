@@ -64,23 +64,27 @@ export function deleteEvent(eventId) {
         type: 'DELETE_EVENT',
         eventId: eventId
       })
+    }).catch((error) => {
+      console.log(error);
     });
   };
 }
 
 // facebook/tinder login
 export function tinderLogin(token) {
-  return axios.post('/auth/tinder', {
+  const login = axios.post('/auth/tinder', {
       facebook_token: token
-    })
-    .then((response) => {
-      console.log("Logging in to Tinder!");
-      return {
+  });
+
+  return (dispatch) => {
+    return login.then(({data}) => {
+      dispatch ({
         type: 'LOGIN',
+        facebook_token: token,
         auth: true
-      }
-    })
-    .catch((error) => {
+      })
+    }).catch((error) => {
       console.log(error);
     });
+  };
 }

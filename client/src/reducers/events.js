@@ -54,7 +54,7 @@ function events(state = [], action) {
 
     case 'DELETE_EVENT' :
       console.log("Deleting event!");
-      let index = null;
+      index = null;
       for(let i = 0; i < state.events.length; i++) {
         if(state.events[i].id === action.eventId) {
           index = i;
