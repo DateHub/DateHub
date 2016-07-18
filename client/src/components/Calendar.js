@@ -89,6 +89,7 @@ export default class Calendar extends Component {
     return (
       <div>
         <BigCalendar
+          {...this.props}
           selectable
           events={this.state.events}
           onSelectEvent={event => this.open(event)}
