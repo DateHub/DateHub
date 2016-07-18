@@ -88,8 +88,7 @@ export default class Main extends Component {
             </div>
           </div>
           <Link to="/dates" className="btn btn-primary navbar-btn pull-right margin-sides-small"> 
-          <span className="badge">{this.props.events.events && this.props.events.events.length || 0}</span>
-            Dates <span className="badge">5</span>
+            Dates <span className="badge">{this.props.events.events && this.props.events.events.length || 0}</span>
           </Link>
           <button className="btn btn-primary navbar-btn pull-right margin-sides-small" 
                   type="button"
@@ -97,8 +96,6 @@ export default class Main extends Component {
                   onClick={this.notificationOpen.bind(this)}>
             <Loading isLoading={this.state.isLoading}
                      newMatches={this.state.newMatches} />
-                  <Loading isLoading={this.state.isLoading}
-                           newMatches={this.state.newMatches} />
           </button>
         </nav>
         <Notification isOpen={this.state.notificationOpen} 
@@ -110,19 +107,6 @@ export default class Main extends Component {
                event={this.state.event} 
                action={this.props.addEvent}
                getAllEvents={this.props.getEvents} />
-        <Notification value={this.state} newMatches={this.props.newMatches.bind(this)}/>
-        {React.cloneElement(this.props.children, this.props)}
-      </div>
-        <Modal
-          isOpen={this.state.isOpen}
-          onRequestClose={this.state.notificationClose}
-          style={customStyles}>
-          <NotificationUpcomingDate 
-            matches={this.state.matches} 
-            hasMatches={this.state.matches.length !== 0}
-            popupOpen={this.state.popupOpen} />
-        </Modal>
-    );
         {React.cloneElement(this.props.children, this.props)}
       </div>
     )
