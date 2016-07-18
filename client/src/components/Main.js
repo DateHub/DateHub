@@ -54,7 +54,7 @@ export default class Main extends Component {
 
   notificationOpen(selectedEvent) {
     this.setState({
-      notificationOpen: true,
+      notificationOpen: !this.state.notificationOpen,
       popupOpen: false
     });
   }
