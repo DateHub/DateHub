@@ -13,7 +13,8 @@ export default class NotificationUpcomingDate extends Component {
 
     this.state = {
       matches: this.props.matches,
-      hasMatches: this.props.hasMatches
+      hasMatches: this.props.hasMatches,
+      popupOpen: this.props.popupOpen
     };
   }
 
@@ -26,10 +27,12 @@ export default class NotificationUpcomingDate extends Component {
       );
     }
 
+    let popupOpen = this.state.popupOpen;
     let matches = _.map(this.state.matches, function(match, index) {
       return <NotificationUpcomingDateEntry 
                 match={match} 
                 index={index} 
+                popupOpen={popupOpen}
                 key={index} />;
     });
 

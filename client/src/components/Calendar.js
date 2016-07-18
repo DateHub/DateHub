@@ -15,6 +15,9 @@ BigCalendar.setLocalizer(
 // Calendar: uses react big calendar api
 // Each date will be clickable to show the date list. Each date will have concise info about dates on that day.
 
+var lastLength = -1;
+var loading = false;
+
 export default class Calendar extends Component {
   constructor(props){
     super(props);
@@ -27,16 +30,28 @@ export default class Calendar extends Component {
     };
   }
 
-  componentDidMount() {
-    return this.getAllEvents();
-  }
-
   componentWillReceiveProps(nextProps) {
-    if(nextProps.value !== this.props.value) {
+    if(nextProps.events.events === undefined && !loading) {
+      loading = true;
       return this.getAllEvents();
     }
-  }
+    if(nextProps.events.events === undefined && loading) {
+      return;
+    }
+    if(loading) {
+      loading = false;
+      lastLength = nextProps.events.events.length;
+    }
 
+    if(lastLength !== nextProps.events.events.length) {
+      lastLength = nextProps.events.events.length;
+      this.setState({ 
+        events: nextProps.events.events,
+        current: this.state.current,
+        open: false
+      })
+    }
+  }
 
   getAllEvents() {
     return this.props.getEvents()
@@ -57,32 +72,16 @@ export default class Calendar extends Component {
     });
   }
 
-  createEvent(event) {
-    // Need to make a button and modal to deal with this, but the addEvent function works perfectly
-
-    event.preventDefault();
-
-    let end = Moment(this.refs.start.value).endOf('day').format();
-
-    let newEvent = {
-      // title: title,
-      location: this.refs.location.value || "",
-      name: this.refs.name.value || "",
-      // notes: this.refs.notes.value || "",
-      start: this.refs.start.value || "",
-      end: end
-    };
-
-    return this.props.addEvent(newEvent)
-    .then(() => {
-      return this.getAllEvents();
-    });
-  }
-
   open(selectedEvent) {
     this.setState({
       current: selectedEvent,
       open: true,
+    });
+  }
+
+  popupClose() {
+    this.setState({
+      open: false
     });
   }
 
@@ -93,15 +92,11 @@ export default class Calendar extends Component {
           selectable
           events={this.state.events}
           onSelectEvent={event => this.open(event)}
-          views={["month"]}
         />
-        <Popup value={this.state} getAllEvents={this.getAllEvents.bind(this)} />
-        <form onSubmit={this.createEvent.bind(this)}>
-          <input type="text" ref="name"/>
-          <input type="text" ref="location"/>
-          <input type="datetime-local" ref="start"/>
-          <button type="submit">Submit</button>
-        </form>
+        <Popup isOpen={this.state.open}
+               popupClose={this.popupClose.bind(this)}
+               event={this.state.current} 
+               action={this.props.editEvent} />
       </div>
     );
   }

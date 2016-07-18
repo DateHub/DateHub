@@ -34,49 +34,27 @@ export default class Popup extends Component {
   constructor(props){
     super(props);
 
-    console.log(this.props.value.props)
-
     this.state = { 
-      modalIsOpen: this.props.value.open,
-      event: this.props.value.current
+      isOpen: this.props.isOpen,
+      event: this.props.event,
+      closePopup: this.props.popupClose
     };
 
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
     this.save = this.save.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
     this.setState({
-      event: nextProps.value.current,
-      modalIsOpen: nextProps.value.open
-    });
-  }
-
-  openModal() {
-    this.setState({
-      modalIsOpen: true
-    });
-  }
-
-  afterOpenModal() {
-    // Nothing to do
-  }
-
-  closeModal(event) {
-    event && event.preventDefault();
-    this.setState({
-      modalIsOpen: false
+      event: nextProps.event,
+      isOpen: nextProps.isOpen
     });
   }
 
   save(event) {
     event && event.preventDefault();
-    console.log(this.refs.date.value);
     let date = this.refs.date.refs.datetimepicker.firstChild.attributes[2].nodeValue;
     let time = this.refs.time.refs.datetimepicker.firstChild.attributes[2].nodeValue;
-    let start = Moment(date + " " + time).format();
+    let start = Moment(new Date(date + " " + time)).format();
 
     let updatedEvent = {
       location: this.refs.location.value || "",
@@ -89,22 +67,19 @@ export default class Popup extends Component {
     let modal = this;
     let eventId = this.state.event.id;
 
-    // this.closeModal();
-
     // Need to figure out how to re-render
 
-    return this.props.value.props.editEvent(updatedEvent, eventId)
+    return this.props.action(updatedEvent, eventId)
     .then(() => {
-      return this.props.getAllEvents();
+      this.props.getAllEvents && this.props.getAllEvents();
+      return this.state.closePopup();
     });
   }
 
   render() {
     return (
       <Modal
-        isOpen={this.state.modalIsOpen}
-        onAfterOpen={this.afterOpenModal}
-        onRequestClose={this.closeModal}
+        isOpen={this.state.isOpen}
         style={customStyles}>
         <form className="eventEditor" onSubmit={this.save.bind(this)}>
           <div className="panel panel-primary no-margin">

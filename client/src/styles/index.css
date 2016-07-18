@@ -54,11 +54,10 @@ div.bootstrap-datetimepicker-widget {
 
 td.day {
   cursor: pointer !important;
-<<<<<<< HEAD
 }
 
 body {
-  background-image: url("/nature-hd-bg.jpg");
+  background-image: url("/osaka.gif");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center; 
@@ -75,27 +74,8 @@ html, body, div#container, div#container:first-child > div, div#container:first-
   height: 97%;
 }
 
-.rbc-btn-group {
-  border-radius: 5px;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.rbc-btn-group button {
-  color: white;
-}
-
-body {
-  background-image: url("/nature-hd-bg.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  padding-top: 30px;
+.rbc-toolbar > span:last-child {
+  visibility: hidden;
 }
 
 .rbc-btn-group {

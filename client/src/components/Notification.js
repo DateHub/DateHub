@@ -28,8 +28,9 @@ export default class Notification extends Component {
     super(props);
 
     this.state = {
-      notificationOpen: this.props.value.notificationOpen,
-      matches: this.props.value.newMatches || []
+      isOpen: this.props.isOpen,
+      matches: this.props.newMatches || [],
+      popupOpen: this.props.popupOpen
     };
 
     this.openNotification = this.openNotification.bind(this);
@@ -38,30 +39,33 @@ export default class Notification extends Component {
   
   componentWillReceiveProps(nextProps){
     this.setState({
-      notificationOpen: nextProps.value.notificationOpen,
-      matches: nextProps.value.newMatches || []
+      isOpen: nextProps.isOpen,
+      matches: nextProps.newMatches || []
     });
   }
 
   openNotification() {
     this.setState({
-      notificationOpen: true
+      isOpen: true
     });
   }
 
   closeNotification() {
     this.setState({
-      notificationOpen: false
+      isOpen: false
     });
   }
 
   render() {
     return (
         <Modal
-          isOpen={this.state.notificationOpen}
+          isOpen={this.state.isOpen}
           onRequestClose={this.closeNotification}
           style={customStyles}>
-          <NotificationUpcomingDate matches={this.state.matches} hasMatches={this.state.matches.length !== 0} />
+          <NotificationUpcomingDate 
+            matches={this.state.matches} 
+            hasMatches={this.state.matches.length !== 0}
+            popupOpen={this.state.popupOpen} />
         </Modal>
     );
   }
