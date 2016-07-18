@@ -38,10 +38,12 @@ export default class Popup extends Component {
       isOpen: this.props.isOpen,
       event: this.props.event,
       closePopup: this.props.popupClose,
-      disableDelete: this.props.disableDelete
+      disableDelete: this.props.disableDelete,
+      deleteEvent: this.props.deleteEvent
     };
 
     this.save = this.save.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -77,6 +79,16 @@ export default class Popup extends Component {
     });
   }
 
+  handleDelete() {
+    if(!this.state.disableDelete) {
+      return this.state.deleteEvent(this.state.event.id)
+      .then(() => {
+        this.props.getAllEvents && this.props.getAllEvents();
+          return this.state.closePopup()
+      });
+    };
+  }
+
   render() {
     return (
       <Modal
@@ -107,7 +119,7 @@ export default class Popup extends Component {
             <div className="panel-footer primary center-text">
               <div className="row">
                 <div className="col-md-6">
-                  <button disabled={this.state.disableDelete} className="btn btn-danger full-width" type="button" >Delete</button>
+                  <button disabled={this.state.disableDelete} className="btn btn-danger full-width" type="button" onClick={this.handleDelete}>Delete</button>
                 </div>
                 <div className="col-md-6">
                   <button className="saveEvent btn btn-success full-width" type="submit">Save</button>

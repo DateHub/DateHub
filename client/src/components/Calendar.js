@@ -97,7 +97,8 @@ export default class Calendar extends Component {
                popupClose={this.popupClose.bind(this)}
                event={this.state.current} 
                disableDelete={false}
-               action={this.props.editEvent} />
+               action={this.props.editEvent}
+               deleteEvent={this.props.deleteEvent} />
       </div>
     );
   }

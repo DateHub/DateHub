@@ -57,9 +57,9 @@ function events(state = [], action) {
 
       return [
         // from start of index to the event that we're deleting
-        ...state.slice(0, index),
+        ...state.events.slice(0, index),
         // the next event after the one that we've deleted
-        ...state.slice(index + 1)
+        ...state.events.slice(index + 1)
       ];
 
     default:
