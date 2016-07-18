@@ -6,7 +6,7 @@
 function events(state = [], action) {
   switch(action.type) {
     case 'GET_EVENTS' :
-      console.log("Getting events!");
+      console.log("Getting events!", action.events);
       return [...state, {
         events: action.events
       }];

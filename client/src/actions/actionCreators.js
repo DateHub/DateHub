@@ -4,9 +4,15 @@ import axios from 'axios';
 export function getEvents() {
   let Today = new Date();
   let month = Today.getMonth() + 1;
-  let year = Today.getYear();
+  let year = 2016;
+
+  if(month < 10) {
+    month = "0" + month
+  }
+
   return axios.get('/api/dates/month/' + month + '/year/' +year)
   .then((response) => {
+    console.log("Getting events from DB!")
     return {
       type: 'GET_EVENTS',
       events: response.data
@@ -60,7 +66,7 @@ export function tinderLogin(token) {
       facebook_token: token
     })
     .then((response) => {
-      console.log("tinder login", response);
+      console.log("Logging in to Tinder!");
       return {
         type: 'LOGIN',
         auth: true
