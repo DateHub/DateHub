@@ -1,4 +1,5 @@
 # Project Name #
+DateHub
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -17,28 +18,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  DateHub
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  For the avid serial dater.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  DateHub allows users to keep track of their many Tinder matches and schedule dates in a user-friendly manner. DateHub interacts with the Tinder API in a way that it isn't normally possible for the average user.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  Keeping upcoming dates organized a is often a difficult task, adding to the difficulty of online dating.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  DateHub takes the worry out of the who and the what you'll be doing by allowing users to keep track of and add notes to dates with their Tinder matches.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  Make dating great again. DateHub 2016.
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  Download the Chrome Extension and quickly login and import your Tinder matches and start scheduling dates!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  With DateHub I stopped confusing my dates and was finally able to have fun again!
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  Dating isn't easy. DateHub is here to try and make it easier. Get online today and get out there again!
