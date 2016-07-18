@@ -6,7 +6,8 @@
 function events(state = [], action) {
   switch(action.type) {
     case 'GET_EVENTS' :
-      console.log("Getting events!", action.events);
+      console.log("state", state);
+      console.log("Getting events!");
       return [...state, {
         events: action.events
       }];
@@ -32,10 +33,9 @@ function events(state = [], action) {
         ...state.slice(0, i),
         // the item
         {...state[i], event: {
-          title: "test title",
           name: action.event.name,
           location: action.event.location,
-          start: action.event.date,
+          start: action.event.start,
           // end: action.event.end,
           notes: action.event.notes
         }},

@@ -38,12 +38,18 @@ export function addEvent(eventObject) {
 }
 
 // edit event
-export function editEvent(eventObject, eventId) {
-  return {
-    type: 'EDIT_EVENT',
-    event: eventObject,
-    eventId: eventId
-  }
+export function editEvent(updatedEvent, eventId) {
+  return axios.put('/api/dates/' + eventId, updatedEvent)
+    .then((response) => {
+      return {
+        type: 'EDIT_EVENT',
+        event: updatedEvent,
+        eventId: eventId
+      }
+    })
+    .catch((error) => {
+      alert(error);
+    });
 }
 
 // delete event

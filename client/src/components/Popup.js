@@ -3,20 +3,10 @@ import Modal from 'react-modal';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 import Moment from 'moment';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import * as Actions from '../actions/actionCreators';
 
 // import ReactDOM from 'react-dom';
-
-// // Need to add an import for the location of the dates/events themselves
-// // import events from './events'
-// // See below for format of each event
-
-// {
-//     'title': 'Meeting',
-//     'start': new Date(2015, 3, 12, 10, 30, 0, 0),
-//     'end': new Date(2015, 3, 12, 12, 30, 0, 0),
-//     desc: 'Pre-meeting meeting, to prepare for the meeting'
-// }
-
 
 const customStyles = {
   overlay : {
@@ -36,7 +26,7 @@ const customStyles = {
   }
 };
 
-// Calendar: cuses react big calendar api
+// Calendar: uses react big calendar api
 // Each date will be clickable to show the date list. Each date will have concise info about dates on that day.
 
 export default class Popup extends Component {
@@ -80,24 +70,28 @@ export default class Popup extends Component {
 
   save(event) {
     event && event.preventDefault();
+    console.log(this.refs.date.value);
     let date = this.refs.date.refs.datetimepicker.firstChild.attributes[2].nodeValue;
     let time = this.refs.time.refs.datetimepicker.firstChild.attributes[2].nodeValue;
-    let start = Moment(date + " " + time, "MM/DD/YYYY hh:mm A").toDate();
+    let start = Moment(date + " " + time).format();
+
     let updatedEvent = {
       location: this.refs.location.value || "",
       name: this.refs.name.value || "",
       notes: this.refs.notes.value || "",
-      date: start || ""
+      start: start || "",
+      end: Moment(start).endOf('day')
     };
-    let modal = this;
 
-    axios.post('/api/dates', updatedEvent)
-    .then((response) => {
-      modal.closeModal();
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    let modal = this;
+    let eventId = this.state.event.id;
+
+    this.closeModal();
+
+    // Need to figure out how to re-render
+
+    return Actions.editEvent(updatedEvent, eventId);
+
   }
 
   render() {
@@ -107,7 +101,7 @@ export default class Popup extends Component {
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
         style={customStyles}>
-        <form className="eventEditor">
+        <form className="eventEditor" onSubmit={this.save.bind(this)}>
           <div className="panel panel-primary no-margin">
             <div className="panel-heading subtitle">
               <h1 className="center-text">Date Info</h1>
@@ -133,7 +127,7 @@ export default class Popup extends Component {
                   <button className="btn btn-danger full-width" onClick={this.closeModal}>Close</button>
                 </div>
                 <div className="col-md-6">
-                  <button className="saveEvent btn btn-success full-width" onClick={this.save}>Save</button>
+                  <button className="saveEvent btn btn-success full-width" type="submit">Save</button>
                 </div>
               </div>
             </div>

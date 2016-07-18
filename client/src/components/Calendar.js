@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import Main from './Main';
 import * as Actions from '../actions/actionCreators';
 import DateTimeField from 'react-bootstrap-datetimepicker';
+import { connect } from 'react-redux';
 
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(Moment)
@@ -21,12 +22,15 @@ export default class Calendar extends Component {
     this.state = { 
       current: "",
       open: false,
-      events: []
+      events: this.props.events
     };
   }
 
   componentDidMount() {
-    return this.getAllEvents();
+    return Actions.getEvents()
+    .then(() => {
+      console.log(this.props.events);
+    });
   }
 
   componentWillReceiveProps() {
@@ -41,8 +45,6 @@ export default class Calendar extends Component {
   }
 
   setEvents(events) {
-    // Events won't render to calendar without start, and end time--properties on object have to be explicitly start and end
-
     this.setState({
         current: this.state.current,
         open: this.state.open,
@@ -65,8 +67,6 @@ export default class Calendar extends Component {
       start: this.refs.start.value || "",
       end: end
     };
-
-    // console.log(newEvent);
 
     return Actions.addEvent(newEvent)
     .then(() => {
