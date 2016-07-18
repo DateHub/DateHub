@@ -36,7 +36,8 @@ module.exports = (function() {
       });
     }).then(function(lastUpdated) {
       var newMatches = tinderHelper.getMatches(request.session.token, lastUpdated);
-      var newPeoplePromies = _.map(newMatches, function(match) {
+      var newPeoplePromises = _.map(newMatches, function(match) {
+        console.log(match.person)
         newPeople.push(match.person);
         return new Promise(function(resolve, reject) {
           return User.findOrCreate({
@@ -48,8 +49,10 @@ module.exports = (function() {
             .catch(reject);
         });
       });
-      return Promise.all(newPeople).then(function(values) {
+      return Promise.all(newPeoplePromises).then(function(values) {
         return newMatches;
+      }).catch(function(error) {
+        console.log(error);
       });
     }).then(function(newMatches) {
       return _.map(newMatches, function(match) {
