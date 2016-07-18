@@ -3,7 +3,7 @@
 // 1. the action (what happened)
 // 2. a copy of the current state
 
-function auth(state = [], action) {
+function auth(state = {}, action) {
   switch(action.type) {
     case 'LOGIN' :
       console.log("LOGGING IN", action);

@@ -38,11 +38,11 @@ export default class Login extends Component {
   login(event) {
     event.preventDefault();
 
-    this.setState({
-      facebookToken: this.refs.tokenInput.value
-    });
+    // this.setState({
+    //   facebookToken: this.refs.tokenInput.value
+    // });
 
-    return this.props.tinderLogin(this.state.facebookToken);
+    return this.props.tinderLogin(this.refs.tokenInput.value);
 
     // return axios.post('/auth/tinder', {
     //     facebook_token: this.state.facebookToken

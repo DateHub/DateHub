@@ -18,9 +18,9 @@ import { Provider } from 'react-redux';
 import store, { history, defaultState } from './store';
 
 function requireAuth(nextState, replace) {
-  // // Need to figure out to update auth status
-  // console.log("in requireAuth", store.getState());
-  // if(!store.getState().auth.length < 1) {
+  // Need to figure out to update auth status
+  // console.log("in requireAuth", store.getState().auth);
+  // if(!store.getState().auth) {
   //   replace('/login');
   // }
 }

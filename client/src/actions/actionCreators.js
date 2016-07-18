@@ -78,6 +78,7 @@ export function tinderLogin(token) {
 
   return (dispatch) => {
     return login.then(({data}) => {
+      console.log(data);
       dispatch ({
         type: 'LOGIN',
         facebook_token: token,
