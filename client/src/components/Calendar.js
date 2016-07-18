@@ -22,8 +22,6 @@ export default class Calendar extends Component {
   constructor(props){
     super(props);
 
-    console.log(this.props);
-
     this.state = { 
       current: "",
       open: false,
